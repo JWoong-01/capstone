@@ -26,13 +26,5 @@ public class MainActivity extends AppCompatActivity {
         tv_id.setText(userID);
         tv_pass.setText(userPass);
 
-        Button button=findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this,LoginActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 }
