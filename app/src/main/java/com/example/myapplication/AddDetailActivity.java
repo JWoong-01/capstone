@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -40,16 +41,20 @@ public class AddDetailActivity extends AppCompatActivity {
         // Intent에서 데이터 받기
         Intent intent = getIntent();
         if (intent != null) {
-            String itemName = intent.getStringExtra("itemName");
-            int itemImage = intent.getIntExtra("itemImage", 0);
+            String itemName = intent.getStringExtra("itemName"); // 재료 이름 받기
+            int itemImage = intent.getIntExtra("itemImage", 0); // 재료 이미지 리소스 ID 받기
 
-            tvItemName.setText(itemName);
-            ivItemImage.setImageResource(itemImage);
+            // 받은 데이터를 뷰에 설정
+            tvItemName.setText(itemName); // 재료 이름 설정
+            ivItemImage.setImageResource(itemImage); // 재료 이미지 설정
         }
+
+        // 뒤로가기 버튼
+        btnBack.setOnClickListener(v -> finish());
 
         // 수량 감소 버튼
         btnDecreaseQuantity.setOnClickListener(v -> {
-            if (quantity > 0) {
+            if (quantity > 0) { // 수량이 0보다 큰 경우에만 감소
                 quantity--;
                 quantityText.setText(String.valueOf(quantity));
             } else {
@@ -70,13 +75,18 @@ public class AddDetailActivity extends AppCompatActivity {
         btnIngredientAdd.setOnClickListener(v -> {
             String ingredientName = tvItemName.getText().toString();
             String expirationDate = etExpirationDate.getText().toString();
-            ApiRequest.addIngredient(this, ingredientName, quantity, expirationDate);
-        });
 
-        // 뒤로가기 버튼
-        btnBack.setOnClickListener(v -> finish());
+            // ApiRequest 클래스 사용하여 서버에 재료 추가
+            ApiRequest apiRequest = new ApiRequest(this);
+            apiRequest.addIngredient(ingredientName, quantity, expirationDate);
+
+            Intent returnIntent = new Intent(AddDetailActivity.this, AddIngredientActivity.class);
+            startActivity(returnIntent);
+            finish();
+        });
     }
 
+    // 유통기한을 위한 날짜 선택기 다이얼로그 표시
     private void showDatePickerDialog() {
         final Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -91,4 +101,3 @@ public class AddDetailActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 }
-

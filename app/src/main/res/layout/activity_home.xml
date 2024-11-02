@@ -41,7 +41,6 @@
             android:background="@drawable/ic_pencil"
             android:contentDescription="재료 수정 버튼" />
 
-
         <!-- 추가 버튼 -->
         <Button
             android:id="@+id/btn_plus"
@@ -51,7 +50,6 @@
             android:layout_toStartOf="@id/btn_edit"
             android:background="@drawable/ic_plus"
             android:contentDescription="재료 추가 버튼" />
-
     </RelativeLayout>
 
     <!-- 냉동실 섹션 -->
@@ -70,16 +68,22 @@
                 android:id="@+id/tv_freezer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="냉동실"
+                android:text="냉장실"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-
         </RelativeLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="170dp"
             android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/tv_ingredients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:textSize="16sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -106,10 +110,9 @@
                 android:id="@+id/tv_fridge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="냉장실"
+                android:text="냉동실"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-
         </RelativeLayout>
 
         <FrameLayout

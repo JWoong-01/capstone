@@ -24,7 +24,8 @@ public class AddIngredientActivity extends AppCompatActivity {
         btn_fredge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(AddIngredientActivity.this, HomeActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -33,8 +34,11 @@ public class AddIngredientActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // AddDetailActivity로 이동
                 Intent intent = new Intent(AddIngredientActivity.this, AddDetailActivity.class);
+                intent.putExtra("itemName", "양파"); // 재료 이름
+                intent.putExtra("itemImage", R.drawable.it_onion); // 재료 이미지 리소스 ID
                 startActivity(intent);
             }
         });
+
     }
 }
