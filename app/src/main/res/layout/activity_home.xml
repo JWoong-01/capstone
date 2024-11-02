@@ -8,12 +8,13 @@
     android:padding="16dp"
     tools:context=".HomeActivity">
 
-    <!-- 타이틀 -->
+    <!-- 타이틀 및 버튼들 -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp">
 
+        <!-- 타이틀 텍스트뷰 -->
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
@@ -22,24 +23,38 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <!-- 재료 삭제 버튼 -->
-        <Button
-            android:id="@+id/btn_edit"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="8dp"
-            android:layout_toStartOf="@id/btn_delete"
-            android:background="@drawable/ic_pencil" />
-
+        <!-- 삭제 버튼 -->
         <Button
             android:id="@+id/btn_delete"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_alignParentEnd="true"
             android:background="@drawable/ic_trashcan" />
+
+        <!-- 수정 버튼 -->
+        <Button
+            android:id="@+id/btn_edit"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toStartOf="@id/btn_delete"
+            android:background="@drawable/ic_pencil"
+            android:contentDescription="재료 수정 버튼" />
+
+
+        <!-- 추가 버튼 -->
+        <Button
+            android:id="@+id/btn_plus"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toStartOf="@id/btn_edit"
+            android:background="@drawable/ic_plus"
+            android:contentDescription="재료 추가 버튼" />
+
     </RelativeLayout>
 
-    <!-- 냉동실 -->
+    <!-- 냉동실 섹션 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,12 +74,6 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/btn_add_freezer"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentEnd="true"
-                android:background="@drawable/ic_plus" />
         </RelativeLayout>
 
         <FrameLayout
@@ -101,12 +110,6 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/btn_add_fredge"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentEnd="true"
-                android:background="@drawable/ic_plus" />
         </RelativeLayout>
 
         <FrameLayout
@@ -123,53 +126,92 @@
         </FrameLayout>
     </LinearLayout>
 
-    <!-- 하단 메뉴 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_gravity="bottom"
         android:gravity="center"
-        android:layout_marginTop="16dp">
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <!-- 나의 냉장고 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_fredge"
+                android:layout_width="29dp"
+                android:layout_height="29dp"
+                android:background="@drawable/ic_fredge" />
+
+            <TextView
+                android:id="@+id/tv_myfredge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="나의 냉장고"
+                android:textSize="11sp" />
+        </LinearLayout>
 
         <Space
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="0.7" />
 
-        <Button
-            android:id="@+id/btn_fredge"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:background="@drawable/ic_fredge" />
+        <!-- 레시피 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_recipe"
+                android:layout_width="29dp"
+                android:layout_height="29dp"
+                android:background="@drawable/ic_recipe" />
+
+            <TextView
+                android:id="@+id/tv_recipe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="레시피 찾기"
+                android:textSize="11sp" />
+        </LinearLayout>
 
         <Space
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="0.7" />
 
-        <Button
-            android:id="@+id/btn_recipe"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:background="@drawable/ic_recipe"
-            android:layout_marginStart="48dp"
-            android:layout_marginEnd="48dp" />
-
-        <Space
-            android:layout_width="wrap_content"
+        <!-- 설정 -->
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_setting"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:background="@drawable/ic_setting" />
+            <Button
+                android:id="@+id/btn_setting"
+                android:layout_width="29dp"
+                android:layout_height="29dp"
+                android:background="@drawable/ic_setting" />
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/tv_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="설정"
+                android:textSize="11sp" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

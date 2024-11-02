@@ -25,6 +25,12 @@
             android:name=".HomeActivity"
             android:exported="true"/>
         <activity
+            android:name=".AddIngredientActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".AddDetailActivity"
+            android:exported="true"/>
+        <activity
             android:name=".IntroActivity"
             android:exported="true">
             <intent-filter>
