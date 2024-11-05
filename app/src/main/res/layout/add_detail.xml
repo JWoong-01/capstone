@@ -7,52 +7,55 @@
     android:layout_height="match_parent">
 
     <!-- 타이틀 -->
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/ic_caretleft"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_add_ingredient"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp">
-
-        <Button
-            android:id="@+id/btn_back"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_marginTop="2dp"
-            android:background="@drawable/ic_caretleft" />
-
-        <TextView
-            android:id="@+id/tv_add_ingredient"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="28dp"
-            android:layout_marginTop="3dp"
-            android:text="재료 추가"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
+        android:layout_marginTop="8dp"
+        android:text="재료 추가"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/btn_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/btn_back"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <!-- 재료 이미지와 이름 -->
     <LinearLayout
         android:id="@+id/item"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/relativeLayout">
+        android:layout_marginTop="60dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_add_ingredient"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" >
 
         <ImageView
             android:id="@+id/iv_itemImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:contentDescription="@string/itemImage"
-            android:src="@drawable/it_onion" />
+            android:src="@drawable/it_onion"
+            android:contentDescription="재료 이미지" />
 
         <TextView
             android:id="@+id/tv_itemName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/itemName"
+            android:text="양파"
             android:textColor="@color/black"
             android:textSize="16sp" />
     </LinearLayout>
@@ -60,18 +63,21 @@
     <!-- 수량 선택 -->
     <LinearLayout
         android:id="@+id/quantity"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="5dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/item">
+        android:padding="5dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintTop_toBottomOf="@id/item"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
             android:id="@+id/tv_quantityLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="16dp"
+            android:layout_marginRight="153dp"
             android:text="수량"
             android:textColor="@color/black"
             android:textSize="15sp" />
@@ -80,7 +86,7 @@
             android:id="@+id/btn_decreaseQuantity"
             android:layout_width="28dp"
             android:layout_height="28dp"
-            android:background="@drawable/ic_minus"/>
+            android:background="@drawable/ic_minus" />
 
         <TextView
             android:id="@+id/quantityText"
@@ -101,49 +107,52 @@
     <!-- 유통기한 입력 -->
     <LinearLayout
         android:id="@+id/label"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center"
+        android:orientation="horizontal"
         android:padding="5dp"
-        app:layout_constraintTop_toBottomOf="@id/quantity">
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toBottomOf="@id/quantity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" >
 
         <TextView
             android:id="@+id/tv_expirationLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="60dp"
             android:text="유통기한"
             android:textColor="@color/black"
             android:textSize="15sp" />
 
         <EditText
             android:id="@+id/et_expirationDate"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="100dp"
             android:layout_marginRight="20dp"
             android:backgroundTint="@color/black"
             android:hint="날짜 입력"
-            android:textSize="14sp"
             android:inputType="date"
             android:padding="8dp"
             android:textColor="@color/black"
-            android:layout_weight="1" />
+            android:textSize="14sp" />
     </LinearLayout>
 
     <!-- 추가 버튼 -->
     <Button
         android:id="@+id/btn_ingredient_add"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="160dp"
+        android:layout_marginTop="100dp"
         android:text="추가"
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/label"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- 하단바 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -151,6 +160,7 @@
         android:gravity="center"
         android:orientation="horizontal"
         android:padding="4dp"
+        android:layout_marginBottom="30dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <!-- 나의 냉장고 -->

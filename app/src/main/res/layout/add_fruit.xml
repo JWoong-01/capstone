@@ -1,0 +1,692 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 타이틀 -->
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        tools:ignore="MissingConstraints">
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/ic_caretleft" />
+
+        <TextView
+            android:id="@+id/tv_add_ingredient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="3dp"
+            android:text="재료 추가"
+            android:textSize="18sp" />
+
+        <!-- 재료 검색 -->
+        <Button
+            android:id="@+id/btn_search"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toStartOf="@id/btn_input"
+            android:background="@drawable/ic_search" />
+
+        <!-- 재료 직접 입력 -->
+        <Button
+            android:id="@+id/btn_input"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/ic_edit" />
+    </RelativeLayout>
+
+    <!-- 검색바 -->
+    <EditText
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_search"
+        android:hint="검색어를 입력하세요"
+        android:inputType="textAutoComplete"
+        android:padding="15dp"
+        android:textSize="13sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/relativeLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- 카테고리 탭 -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/category_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        app:tabMode="scrollable"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/search_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="과일" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="채소" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="유제품" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="고기" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="수산물" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="양념" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="곡류" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="기타" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="13dp"
+        android:layout_marginTop="13dp"
+        app:layout_constraintTop_toBottomOf="@id/category_tab"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- 그리드 (재료 목록) -->
+        <GridLayout
+            android:id="@+id/ingredient_grid"
+            android:layout_width="380dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:alignmentMode="alignMargins"
+            android:columnCount="4"
+            android:columnOrderPreserved="false"
+            android:padding="5dp">
+
+            <!-- 재료 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <FrameLayout
+                    android:layout_width="62dp"
+                    android:layout_height="62dp">
+
+                    <!-- 재료 이미지 -->
+                    <ImageView
+                        android:id="@+id/iv_carrot"
+                        android:layout_width="35dp"
+                        android:layout_height="58dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/it_carrot" />
+
+                    <!-- 추가 버튼 -->
+                    <ImageButton
+                        android:id="@+id/btn_add_1"
+                        android:layout_width="11dp"
+                        android:layout_height="11dp"
+                        android:layout_gravity="top|end"
+                        android:contentDescription="추가 버튼"
+                        android:src="@drawable/ic_plus" />
+                </FrameLayout>
+
+                <!-- 재료 이름 -->
+                <TextView
+                    android:id="@+id/tv_carrot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:text="당근"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- 피망 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <FrameLayout
+                    android:layout_width="62dp"
+                    android:layout_height="62dp">
+
+                    <ImageView
+                        android:id="@+id/iv_paprika"
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/it_paprika" />
+
+                    <ImageButton
+                        android:id="@+id/btn_add_2"
+                        android:layout_width="11dp"
+                        android:layout_height="11dp"
+                        android:layout_gravity="top|end"
+                        android:contentDescription="추가 버튼"
+                        android:src="@drawable/ic_plus" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_paprika"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:text="피망"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- 가지 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <FrameLayout
+                    android:layout_width="62dp"
+                    android:layout_height="62dp">
+
+                    <ImageView
+                        android:id="@+id/iv_eggplant"
+                        android:layout_width="55dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/it_eggplant" />
+
+                    <ImageButton
+                        android:id="@+id/btn_add_3"
+                        android:layout_width="11dp"
+                        android:layout_height="11dp"
+                        android:layout_gravity="top|end"
+                        android:contentDescription="추가 버튼"
+                        android:src="@drawable/ic_plus" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_eggplant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:text="가지"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- 양파 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <FrameLayout
+                    android:layout_width="62dp"
+                    android:layout_height="62dp">
+
+                    <ImageView
+                        android:id="@+id/iv_onion"
+                        android:layout_width="50dp"
+                        android:layout_height="49dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/it_onion" />
+
+                    <ImageButton
+                        android:id="@+id/btn_add_onion"
+                        android:layout_width="11dp"
+                        android:layout_height="11dp"
+                        android:layout_gravity="top|end"
+                        android:contentDescription="추가 버튼"
+                        android:src="@drawable/ic_plus" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_onion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:text="양파"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- 감자 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <FrameLayout
+                    android:layout_width="62dp"
+                    android:layout_height="62dp">
+
+                    <ImageView
+                        android:id="@+id/iv_potato"
+                        android:layout_width="49dp"
+                        android:layout_height="47dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/it_potato" />
+
+                    <ImageButton
+                        android:id="@+id/btn_add_5"
+                        android:layout_width="11dp"
+                        android:layout_height="11dp"
+                        android:layout_gravity="top|end"
+                        android:contentDescription="추가 버튼"
+                        android:src="@drawable/ic_plus" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_potato"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:text="감자"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- 고구마 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <FrameLayout
+                    android:layout_width="62dp"
+                    android:layout_height="62dp">
+
+                    <ImageView
+                        android:id="@+id/iv_swpotato"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/it_sweetpotato" />
+
+                    <ImageButton
+                        android:id="@+id/btn_add_6"
+                        android:layout_width="11dp"
+                        android:layout_height="11dp"
+                        android:layout_gravity="top|end"
+                        android:contentDescription="추가 버튼"
+                        android:src="@drawable/ic_plus" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_swpotato"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:text="고구마"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- 브로콜리 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <FrameLayout
+                    android:layout_width="62dp"
+                    android:layout_height="62dp">
+
+                    <ImageView
+                        android:id="@+id/iv_broccoli"
+                        android:layout_width="47dp"
+                        android:layout_height="47dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/it_broccoli" />
+
+                    <ImageButton
+                        android:id="@+id/btn_add_7"
+                        android:layout_width="11dp"
+                        android:layout_height="11dp"
+                        android:layout_gravity="top|end"
+                        android:contentDescription="추가 버튼"
+                        android:src="@drawable/ic_plus" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_broccoli"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:text="브로콜리"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- 대파 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <FrameLayout
+                    android:layout_width="62dp"
+                    android:layout_height="62dp">
+
+                    <ImageView
+                        android:id="@+id/iv_greenonion"
+                        android:layout_width="49dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/it_greenonion" />
+
+                    <ImageButton
+                        android:id="@+id/btn_add_8"
+                        android:layout_width="11dp"
+                        android:layout_height="11dp"
+                        android:layout_gravity="top|end"
+                        android:contentDescription="추가 버튼"
+                        android:src="@drawable/ic_plus" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_greenonion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:text="대파"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- 마늘 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <FrameLayout
+                    android:layout_width="62dp"
+                    android:layout_height="62dp">
+
+                    <ImageView
+                        android:id="@+id/iv_garlic"
+                        android:layout_width="46dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/it_garlic" />
+
+                    <ImageButton
+                        android:id="@+id/btn_add_9"
+                        android:layout_width="11dp"
+                        android:layout_height="11dp"
+                        android:layout_gravity="top|end"
+                        android:contentDescription="추가 버튼"
+                        android:src="@drawable/ic_plus" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_garlic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:text="마늘"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- 애호박 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <FrameLayout
+                    android:layout_width="62dp"
+                    android:layout_height="62dp">
+
+                    <ImageView
+                        android:id="@+id/iv_zucchini"
+                        android:layout_width="48dp"
+                        android:layout_height="49dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/it_zucchini" />
+
+                    <ImageButton
+                        android:id="@+id/btn_add_10"
+                        android:layout_width="11dp"
+                        android:layout_height="11dp"
+                        android:layout_gravity="top|end"
+                        android:contentDescription="추가 버튼"
+                        android:src="@drawable/ic_plus" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_zucchini"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:text="애호박"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- 고추 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <FrameLayout
+                    android:layout_width="62dp"
+                    android:layout_height="62dp">
+
+                    <ImageView
+                        android:id="@+id/iv_pepper"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/it_pepper" />
+
+                    <ImageButton
+                        android:id="@+id/btn_add_11"
+                        android:layout_width="11dp"
+                        android:layout_height="11dp"
+                        android:layout_gravity="top|end"
+                        android:contentDescription="추가 버튼"
+                        android:src="@drawable/ic_plus" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_pepper"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:text="고추"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- 양배추 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <FrameLayout
+                    android:layout_width="62dp"
+                    android:layout_height="62dp">
+
+                    <ImageView
+                        android:id="@+id/iv_cabbage"
+                        android:layout_width="49dp"
+                        android:layout_height="49dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/it_cabbage" />
+
+                    <ImageButton
+                        android:id="@+id/btn_add_12"
+                        android:layout_width="11dp"
+                        android:layout_height="11dp"
+                        android:layout_gravity="top|end"
+                        android:contentDescription="추가 버튼"
+                        android:src="@drawable/ic_plus" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_cabbage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:text="양배추"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </GridLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- 나의 냉장고 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_fredge"
+                android:layout_width="29dp"
+                android:layout_height="29dp"
+                android:background="@drawable/ic_fredge"
+                android:contentDescription="냉장고" />
+
+            <TextView
+                android:id="@+id/tv_myfredge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="나의 냉장고"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7" />
+
+        <!-- 레시피 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_recipe"
+                android:layout_width="29dp"
+                android:layout_height="29dp"
+                android:background="@drawable/ic_recipe"
+                android:contentDescription="레시피" />
+
+            <TextView
+                android:id="@+id/tv_recipe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="레시피 찾기"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7" />
+
+        <!-- 설정 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_setting"
+                android:layout_width="29dp"
+                android:layout_height="29dp"
+                android:background="@drawable/ic_setting"
+                android:contentDescription="설정" />
+
+            <TextView
+                android:id="@+id/tv_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="설정"
+                android:textSize="11sp" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
