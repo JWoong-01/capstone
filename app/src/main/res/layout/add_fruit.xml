@@ -155,7 +155,7 @@
                     android:layout_height="62dp">
 
                     <ImageView
-                        android:id="@+id/iv_onion"
+                        android:id="@+id/iv_orange"
                         android:layout_width="50dp"
                         android:layout_height="49dp"
                         android:layout_gravity="center"

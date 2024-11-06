@@ -37,7 +37,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
         // 재료 이름, 수량, 유통기한 등을 표시
         holder.nameTextView.setText(ingredient.getName());
         holder.quantityTextView.setText(ingredient.getQuantity() + "개");
-        holder.expirationDateTextView.setText(ingredient.getExpirationDate());
+        holder.expirationDateTextView.setText("유통기한: " + ingredient.getExpirationDate());
         int imageResId = ingredient.getImageResId();
         holder.imageView.setImageResource(imageResId);
     }
