@@ -10,10 +10,13 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="176dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginRight="1dp"
         android:padding="10dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <!-- 그리드 (재료 목록) -->
         <GridLayout
@@ -44,7 +47,7 @@
                         android:layout_width="35dp"
                         android:layout_height="58dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/it_apple" />
+                        android:src="@drawable/it_carrot" />
 
                     <!-- 추가 버튼 -->
                     <ImageButton
@@ -52,8 +55,8 @@
                         android:layout_width="11dp"
                         android:layout_height="11dp"
                         android:layout_gravity="top|end"
-                        android:src="@drawable/ic_plus"
-                        android:contentDescription="추가 버튼"/>
+                        android:contentDescription="추가 버튼"
+                        android:src="@drawable/ic_plus" />
                 </FrameLayout>
 
                 <!-- 재료 이름 -->
@@ -63,10 +66,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="사과"
+                    android:text="당근"
                     android:textSize="12sp" />
             </LinearLayout>
 
+            <!-- 피망 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -83,15 +87,15 @@
                         android:layout_width="57dp"
                         android:layout_height="57dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/it_strawberry" />
+                        android:src="@drawable/it_paprika" />
 
                     <ImageButton
                         android:id="@+id/btn_add_2"
                         android:layout_width="11dp"
                         android:layout_height="11dp"
                         android:layout_gravity="top|end"
-                        android:src="@drawable/ic_plus"
-                        android:contentDescription="추가 버튼"/>
+                        android:contentDescription="추가 버튼"
+                        android:src="@drawable/ic_plus" />
                 </FrameLayout>
 
                 <TextView
@@ -100,11 +104,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="딸기"
+                    android:text="피망"
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <!-- 복숭아 -->
+            <!-- 가지 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -121,15 +125,15 @@
                         android:layout_width="55dp"
                         android:layout_height="60dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/it_peach" />
+                        android:src="@drawable/it_eggplant" />
 
                     <ImageButton
                         android:id="@+id/btn_add_3"
                         android:layout_width="11dp"
                         android:layout_height="11dp"
                         android:layout_gravity="top|end"
-                        android:src="@drawable/ic_plus"
-                        android:contentDescription="추가 버튼"/>
+                        android:contentDescription="추가 버튼"
+                        android:src="@drawable/ic_plus" />
                 </FrameLayout>
 
                 <TextView
@@ -138,11 +142,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="복숭아"
+                    android:text="가지"
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <!-- 오렌지 -->
+            <!-- 양파 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -159,15 +163,15 @@
                         android:layout_width="50dp"
                         android:layout_height="49dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/it_orange" />
+                        android:src="@drawable/it_onion" />
 
                     <ImageButton
-                        android:id="@+id/btn_add_4"
+                        android:id="@+id/btn_add_onion"
                         android:layout_width="11dp"
                         android:layout_height="11dp"
                         android:layout_gravity="top|end"
-                        android:src="@drawable/ic_plus"
-                        android:contentDescription="추가 버튼"/>
+                        android:contentDescription="추가 버튼"
+                        android:src="@drawable/ic_plus" />
                 </FrameLayout>
 
                 <TextView
@@ -176,11 +180,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="오렌지"
-                    android:textSize="12sp"/>
+                    android:text="양파"
+                    android:textSize="12sp" />
             </LinearLayout>
 
-            <!-- 포도 -->
+            <!-- 감자 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -197,15 +201,15 @@
                         android:layout_width="49dp"
                         android:layout_height="47dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/it_grape" />
+                        android:src="@drawable/it_potato" />
 
                     <ImageButton
                         android:id="@+id/btn_add_5"
                         android:layout_width="11dp"
                         android:layout_height="11dp"
                         android:layout_gravity="top|end"
-                        android:src="@drawable/ic_plus"
-                        android:contentDescription="추가 버튼"/>
+                        android:contentDescription="추가 버튼"
+                        android:src="@drawable/ic_plus" />
                 </FrameLayout>
 
                 <TextView
@@ -214,11 +218,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="포도"
+                    android:text="감자"
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <!-- 배 -->
+            <!-- 고구마 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -235,15 +239,15 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/it_pear" />
+                        android:src="@drawable/it_sweetpotato" />
 
                     <ImageButton
                         android:id="@+id/btn_add_6"
                         android:layout_width="11dp"
                         android:layout_height="11dp"
                         android:layout_gravity="top|end"
-                        android:src="@drawable/ic_plus"
-                        android:contentDescription="추가 버튼"/>
+                        android:contentDescription="추가 버튼"
+                        android:src="@drawable/ic_plus" />
                 </FrameLayout>
 
                 <TextView
@@ -252,11 +256,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="배"
+                    android:text="고구마"
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <!-- 바나나 -->
+            <!-- 브로콜리 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -273,15 +277,15 @@
                         android:layout_width="47dp"
                         android:layout_height="47dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/it_banana" />
+                        android:src="@drawable/it_broccoli" />
 
                     <ImageButton
                         android:id="@+id/btn_add_7"
                         android:layout_width="11dp"
                         android:layout_height="11dp"
                         android:layout_gravity="top|end"
-                        android:src="@drawable/ic_plus"
-                        android:contentDescription="추가 버튼"/>
+                        android:contentDescription="추가 버튼"
+                        android:src="@drawable/ic_plus" />
                 </FrameLayout>
 
                 <TextView
@@ -294,7 +298,7 @@
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <!-- 체리 -->
+            <!-- 대파 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -311,15 +315,15 @@
                         android:layout_width="49dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/it_cherry" />
+                        android:src="@drawable/it_greenonion" />
 
                     <ImageButton
                         android:id="@+id/btn_add_8"
                         android:layout_width="11dp"
                         android:layout_height="11dp"
                         android:layout_gravity="top|end"
-                        android:src="@drawable/ic_plus"
-                        android:contentDescription="추가 버튼"/>
+                        android:contentDescription="추가 버튼"
+                        android:src="@drawable/ic_plus" />
                 </FrameLayout>
 
                 <TextView
@@ -328,11 +332,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="체리"
+                    android:text="대파"
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <!-- 망고 -->
+            <!-- 마늘 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -349,15 +353,15 @@
                         android:layout_width="46dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/it_mango" />
+                        android:src="@drawable/it_garlic" />
 
                     <ImageButton
                         android:id="@+id/btn_add_9"
                         android:layout_width="11dp"
                         android:layout_height="11dp"
                         android:layout_gravity="top|end"
-                        android:src="@drawable/ic_plus"
-                        android:contentDescription="추가 버튼"/>
+                        android:contentDescription="추가 버튼"
+                        android:src="@drawable/ic_plus" />
                 </FrameLayout>
 
                 <TextView
@@ -366,11 +370,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="망고"
+                    android:text="마늘"
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <!-- 키위 -->
+            <!-- 애호박 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -387,15 +391,15 @@
                         android:layout_width="48dp"
                         android:layout_height="49dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/it_kiwi" />
+                        android:src="@drawable/it_zucchini" />
 
                     <ImageButton
                         android:id="@+id/btn_add_10"
                         android:layout_width="11dp"
                         android:layout_height="11dp"
                         android:layout_gravity="top|end"
-                        android:src="@drawable/ic_plus"
-                        android:contentDescription="추가 버튼"/>
+                        android:contentDescription="추가 버튼"
+                        android:src="@drawable/ic_plus" />
                 </FrameLayout>
 
                 <TextView
@@ -404,11 +408,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="키위"
+                    android:text="애호박"
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <!-- 파인애플 -->
+            <!-- 고추 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -425,15 +429,15 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/it_pineapple" />
+                        android:src="@drawable/it_pepper" />
 
                     <ImageButton
                         android:id="@+id/btn_add_11"
                         android:layout_width="11dp"
                         android:layout_height="11dp"
                         android:layout_gravity="top|end"
-                        android:src="@drawable/ic_plus"
-                        android:contentDescription="추가 버튼"/>
+                        android:contentDescription="추가 버튼"
+                        android:src="@drawable/ic_plus" />
                 </FrameLayout>
 
                 <TextView
@@ -442,11 +446,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="파인애플"
+                    android:text="고추"
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <!-- 수박 -->
+            <!-- 양배추 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -463,15 +467,15 @@
                         android:layout_width="49dp"
                         android:layout_height="49dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/it_watermelon" />
+                        android:src="@drawable/it_cabbage" />
 
                     <ImageButton
                         android:id="@+id/btn_add_12"
                         android:layout_width="11dp"
                         android:layout_height="11dp"
                         android:layout_gravity="top|end"
-                        android:src="@drawable/ic_plus"
-                        android:contentDescription="추가 버튼"/>
+                        android:contentDescription="추가 버튼"
+                        android:src="@drawable/ic_plus" />
                 </FrameLayout>
 
                 <TextView
@@ -480,7 +484,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="수박"
+                    android:text="양배추"
                     android:textSize="12sp" />
             </LinearLayout>
         </GridLayout>

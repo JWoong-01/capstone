@@ -116,19 +116,23 @@
             android:text="기타" />
     </com.google.android.material.tabs.TabLayout>
 
+    <!-- 재료 뷰페이지 -->
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/view_pager"
-        android:layout_width="383dp"
-        android:layout_height="400dp"
-        android:layout_marginTop="44dp"
+        android:id="@+id/ingredient_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         android:padding="13dp"
+        app:layout_constraintBottom_toTopOf="@id/bottom_bar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/category_tab">
+        app:layout_constraintTop_toBottomOf="@id/category_tab"
+        app:layout_constraintVertical_bias="0.0" />
 
-    </androidx.viewpager2.widget.ViewPager2>
-
+    <!-- 하단 바 -->
     <LinearLayout
+        android:id="@+id/bottom_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -220,5 +224,4 @@
                 android:textSize="11sp" />
         </LinearLayout>
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

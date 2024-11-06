@@ -3,13 +3,13 @@ package com.example.myapplication;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.Calendar;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class AddDetailActivity extends AppCompatActivity {
@@ -38,6 +38,8 @@ public class AddDetailActivity extends AppCompatActivity {
         // 초기 수량 설정
         quantityText.setText(String.valueOf(quantity));
 
+
+
         // Intent에서 데이터 받기
         Intent intent = getIntent();
         if (intent != null) {
@@ -48,6 +50,7 @@ public class AddDetailActivity extends AppCompatActivity {
             tvItemName.setText(itemName); // 재료 이름 설정
             ivItemImage.setImageResource(itemImage); // 재료 이미지 설정
         }
+
 
         // 뒤로가기 버튼
         btnBack.setOnClickListener(v -> finish());
@@ -75,16 +78,23 @@ public class AddDetailActivity extends AppCompatActivity {
         btnIngredientAdd.setOnClickListener(v -> {
             String ingredientName = tvItemName.getText().toString();
             String expirationDate = etExpirationDate.getText().toString();
+            int image  = getIntent().getIntExtra("itemImage", R.drawable.ic_trashcan); // 기본값은 trashcan 이미지
+            ivItemImage.setImageResource(image);
+
+
 
             // ApiRequest 클래스 사용하여 서버에 재료 추가
             ApiRequest apiRequest = new ApiRequest(this);
-            apiRequest.addIngredient(ingredientName, quantity, expirationDate);
+            apiRequest.addIngredient(ingredientName, quantity, expirationDate, image ); // 이미지 파일명 추가
 
             Intent returnIntent = new Intent(AddDetailActivity.this, AddIngredientActivity.class);
             startActivity(returnIntent);
             finish();
         });
+
+
     }
+
 
     // 유통기한을 위한 날짜 선택기 다이얼로그 표시
     private void showDatePickerDialog() {
@@ -101,3 +111,5 @@ public class AddDetailActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 }
+
+

@@ -73,25 +73,12 @@
                 android:textStyle="bold" />
         </RelativeLayout>
 
-        <FrameLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_ingredients"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="300dp"
             android:layout_marginTop="8dp">
-
-            <TextView
-                android:id="@+id/tv_ingredients"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:textSize="16sp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="재료를 추가해보세요!"
-                android:textColor="#CCCCCC" />
-        </FrameLayout>
+        </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 
     <!-- 냉장실 -->

@@ -5,7 +5,6 @@ import android.util.Log;
 import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
@@ -25,7 +24,7 @@ public class ApiRequest {
         this.context = context;
     }
 
-    public void addIngredient(String itemName, int quantity, String expirationDate) {
+    public void addIngredient(String itemName, int quantity, String expirationDate, int image) {
         String url = "http://yju407.dothome.co.kr/add_ingredient.php"; // 서버 URL
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
@@ -45,6 +44,9 @@ public class ApiRequest {
                 params.put("name", itemName);
                 params.put("quantity", String.valueOf(quantity));
                 params.put("expiration_date", expirationDate);
+                params.put("image", String.valueOf(image));
+
+
                 return params;
             }
         };
@@ -80,8 +82,9 @@ public class ApiRequest {
                 String name = jsonObject.getString("name");
                 int quantity = jsonObject.getInt("quantity");
                 String expirationDate = jsonObject.getString("expiration_date");
+                int image = jsonObject.getInt("image");
 
-                ingredients.add(new Ingredient(name, quantity, expirationDate));
+                ingredients.add(new Ingredient(name, quantity, expirationDate, image));
             }
         } catch (Exception e) {
             Log.e("ApiRequest", "Error parsing ingredients", e);
