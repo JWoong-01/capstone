@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,6 +9,7 @@ import android.widget.Toast;
 import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,22 +35,65 @@ public class HomeActivity extends AppCompatActivity {
         btnPlus = findViewById(R.id.btn_plus);
         recyclerViewIngredients = findViewById(R.id.recycler_view_ingredients);
         // RecyclerView 레이아웃 매니저 설정
-        recyclerViewIngredients.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewIngredients.setLayoutManager(new GridLayoutManager(this,4));
+        recyclerViewIngredients.addItemDecoration(new GridSpacingItemDecoration(4, 8, true));
+
 
         // 재료 리스트 불러오기
         loadIngredients();
 
-        // 추가 버튼 클릭 리스너 설정 (이 기능은 추후 adddetail로 이동해야함, addingrement로 페이지 이동만 하게 수정)
+        // 추가 버튼 클릭 리스너 설정
         btnPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // AddDetailActivity로 이동
                 Intent intent = new Intent(HomeActivity.this, AddIngredientActivity.class);
-                intent.putExtra("itemName", "양파"); // 재료 이름
-                intent.putExtra("itemImage", R.drawable.it_onion); // 재료 이미지 리소스 ID
                 startActivity(intent);
             }
         });
+        TextView tvViewDetails = findViewById(R.id.tv_view_details);
+        tvViewDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 상세보기 기능 구현
+                // 예: 상세보기 페이지로 이동
+                Intent intent = new Intent(HomeActivity.this, FreezerDetailsActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+    public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
+        private int spanCount;
+        private int spacing;
+        private boolean includeEdge;
+
+        public GridSpacingItemDecoration(int spanCount, int spacing, boolean includeEdge) {
+            this.spanCount = spanCount;
+            this.spacing = spacing;
+            this.includeEdge = includeEdge;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            int position = parent.getChildAdapterPosition(view); // 아이템의 위치
+            int column = position % spanCount; // 현재 아이템이 위치한 열
+
+            if (includeEdge) {
+                outRect.left = spacing - column * spacing / spanCount;
+                outRect.right = (column + 1) * spacing / spanCount;
+
+                if (position < spanCount) { // 첫 번째 줄
+                    outRect.top = spacing;
+                }
+                outRect.bottom = spacing;
+            } else {
+                outRect.left = column * spacing / spanCount;
+                outRect.right = spacing - (column + 1) * spacing / spanCount;
+
+                if (position >= spanCount) {
+                    outRect.top = spacing;
+                }
+            }
+        }
     }
 
     // 서버에서 재료 목록을 불러오는 메서드

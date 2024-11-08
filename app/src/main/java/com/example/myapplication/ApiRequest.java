@@ -24,7 +24,7 @@ public class ApiRequest {
         this.context = context;
     }
 
-    public void addIngredient(String itemName, int quantity, String expirationDate, int image) {
+    public void addIngredient(String itemName, int quantity, String intakeDate, String expirationDate, int image) {
         String url = "http://yju407.dothome.co.kr/add_ingredient.php"; // 서버 URL
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
@@ -43,6 +43,7 @@ public class ApiRequest {
                 Map<String, String> params = new HashMap<>();
                 params.put("name", itemName);
                 params.put("quantity", String.valueOf(quantity));
+                params.put("intakeDate", intakeDate);
                 params.put("expiration_date", expirationDate);
                 params.put("image", String.valueOf(image));
 
@@ -81,10 +82,11 @@ public class ApiRequest {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 String name = jsonObject.getString("name");
                 int quantity = jsonObject.getInt("quantity");
+                String intakeDate = jsonObject.getString("intakeDate");
                 String expirationDate = jsonObject.getString("expiration_date");
                 int image = jsonObject.getInt("image");
 
-                ingredients.add(new Ingredient(name, quantity, expirationDate, image));
+                ingredients.add(new Ingredient(name, quantity, intakeDate, expirationDate, image));
             }
         } catch (Exception e) {
             Log.e("ApiRequest", "Error parsing ingredients", e);

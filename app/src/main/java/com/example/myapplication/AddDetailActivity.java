@@ -8,7 +8,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -76,16 +80,28 @@ public class AddDetailActivity extends AppCompatActivity {
 
         // 재료 추가 버튼
         btnIngredientAdd.setOnClickListener(v -> {
+            if (quantity == 0) { // 수량이 0인 경우 경고 메시지를 표시하고 리턴
+                Toast.makeText(this, "수량이 0일 경우 재료를 추가할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                return;
+            }
             String ingredientName = tvItemName.getText().toString();
             String expirationDate = etExpirationDate.getText().toString();
+            if (expirationDate.isEmpty()) { // 유통기한이 비어 있는 경우
+                Toast.makeText(this, "유통기한을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             int image  = getIntent().getIntExtra("itemImage", R.drawable.ic_trashcan); // 기본값은 trashcan 이미지
             ivItemImage.setImageResource(image);
+
+            // 현재 날짜를 입고 날짜로 설정
+            String intakeDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
 
 
             // ApiRequest 클래스 사용하여 서버에 재료 추가
             ApiRequest apiRequest = new ApiRequest(this);
-            apiRequest.addIngredient(ingredientName, quantity, expirationDate, image ); // 이미지 파일명 추가
+            apiRequest.addIngredient(ingredientName, quantity, intakeDate, expirationDate, image ); // 이미지 파일명 추가
 
             Intent returnIntent = new Intent(AddDetailActivity.this, AddIngredientActivity.class);
             startActivity(returnIntent);

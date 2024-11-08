@@ -16,22 +16,25 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".IntroActivity"
+            android:exported="true" />
+        <activity
             android:name=".LoginActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".RegisterActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
-            android:name=".HomeActivity"
-            android:exported="true"/>
+            android:name=".FreezerDetailsActivity"
+            android:exported="true" />
         <activity
             android:name=".AddIngredientActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".AddDetailActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
-            android:name=".IntroActivity"
+            android:name=".HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
