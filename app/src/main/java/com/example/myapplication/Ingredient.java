@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
-public class Ingredient {
+import java.io.Serializable;
+
+public class Ingredient implements Serializable {
     private String name;
     private int quantity;
     private final String intakeDate;

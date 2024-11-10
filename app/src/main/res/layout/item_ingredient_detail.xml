@@ -65,4 +65,15 @@
             android:textColor="#666666"
             android:textSize="12sp" />
     </LinearLayout>
+    <!-- 삭제 버튼 -->
+    <Button
+        android:id="@+id/btn_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Delete"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#FF0000"
+        android:padding="4dp"
+        android:layout_marginTop="8dp"/>
 </LinearLayout>

@@ -8,7 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Intent;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.  AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +22,8 @@ public class HomeActivity extends AppCompatActivity {
     private TextView tvTitle;
     private RecyclerView recyclerViewIngredients;
     private IngredientAdapter ingredientAdapter;
+    private boolean isDeleteMode = false;  // 삭제 모드 상태
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,16 @@ public class HomeActivity extends AppCompatActivity {
 
         // 재료 리스트 불러오기
         loadIngredients();
+
+        // 삭제 버튼 클릭 리스너 설정
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 삭제 모드를 토글
+                isDeleteMode = !isDeleteMode;
+                ingredientAdapter.setDeleteMode(isDeleteMode); // Adapter에 삭제 모드 설정
+            }
+        });
 
         // 추가 버튼 클릭 리스너 설정
         btnPlus.setOnClickListener(new View.OnClickListener() {
