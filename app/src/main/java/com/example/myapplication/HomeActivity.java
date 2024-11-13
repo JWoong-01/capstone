@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
+import android.content.pm.PackageManager;
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,38 +10,52 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Intent;
 
-import androidx.appcompat.app.  AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.VolleyError;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
-    private Button btnEdit, btnDelete, btnPlus;
+    private static final int NOTIFICATION_PERMISSION_REQUEST_CODE = 1001;
+    private Button btnEdit, btnDelete, btnPlus, btnSetting;
     private TextView tvTitle;
     private RecyclerView recyclerViewIngredients;
+    private RecyclerView recyclerViewIngredientsFreezer;
     private IngredientAdapter ingredientAdapter;
+    private IngredientAdapter freezerAdapter;
     private boolean isDeleteMode = false;  // 삭제 모드 상태
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        // Android 13 이상에서 알림 권한 요청
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+                ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, NOTIFICATION_PERMISSION_REQUEST_CODE);
+        }
+
         // 레이아웃 요소 초기화
         tvTitle = findViewById(R.id.tv_title);
         btnEdit = findViewById(R.id.btn_edit);
         btnDelete = findViewById(R.id.btn_delete);
         btnPlus = findViewById(R.id.btn_plus);
-        recyclerViewIngredients = findViewById(R.id.recycler_view_ingredients);
+        btnSetting = findViewById(R.id.btn_setting);
+        recyclerViewIngredients = findViewById(R.id.recycler_view_ingredients_fridge);
+        recyclerViewIngredientsFreezer = findViewById(R.id.recycler_view_ingredients_freezer);
+
         // RecyclerView 레이아웃 매니저 설정
-        recyclerViewIngredients.setLayoutManager(new GridLayoutManager(this,4));
+        recyclerViewIngredients.setLayoutManager(new GridLayoutManager(this, 4));
         recyclerViewIngredients.addItemDecoration(new GridSpacingItemDecoration(4, 8, true));
 
+        recyclerViewIngredientsFreezer.setLayoutManager(new GridLayoutManager(this, 4));
+        recyclerViewIngredientsFreezer.addItemDecoration(new GridSpacingItemDecoration(4, 8, true));
 
         // 재료 리스트 불러오기
         loadIngredients();
@@ -50,7 +66,17 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // 삭제 모드를 토글
                 isDeleteMode = !isDeleteMode;
-                ingredientAdapter.setDeleteMode(isDeleteMode); // Adapter에 삭제 모드 설정
+                ingredientAdapter.setDeleteMode(isDeleteMode); // 냉장실 어댑터에 삭제 모드 설정
+                freezerAdapter.setDeleteMode(isDeleteMode);   // 냉동실 어댑터에 삭제 모드 설정
+            }
+        });
+
+        // 설정 버튼 클릭 리스너
+        btnSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, SettingActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -62,17 +88,30 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         TextView tvViewDetails = findViewById(R.id.tv_view_details);
         tvViewDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // 상세보기 기능 구현
-                // 예: 상세보기 페이지로 이동
                 Intent intent = new Intent(HomeActivity.this, FreezerDetailsActivity.class);
                 startActivity(intent);
             }
         });
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == NOTIFICATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // 권한이 승인됨 - 알림을 보낼 수 있음
+            } else {
+                // 권한이 거부됨
+            }
+        }
+    }
+
     public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
         private int spanCount;
         private int spacing;
@@ -108,17 +147,32 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    // 서버에서 재료 목록을 불러오는 메서드
     private void loadIngredients() {
         ApiRequest apiRequest = new ApiRequest(this);
         apiRequest.fetchIngredients(new ApiRequest.IngredientFetchListener() {
             @Override
             public void onFetchSuccess(List<Ingredient> ingredients) {
-                // IngredientAdapter에 재료 목록을 설정
-                ingredientAdapter = new IngredientAdapter(ingredients, HomeActivity.this);
-                recyclerViewIngredients.setAdapter(ingredientAdapter);
-                ingredientAdapter.notifyDataSetChanged();  // 데이터 변경 알리기
+                // 재료를 냉장실과 냉동실 리스트로 분리
+                List<Ingredient> fridgeIngredients = new ArrayList<>();
+                List<Ingredient> freezerIngredients = new ArrayList<>();
 
+                for (Ingredient ingredient : ingredients) {
+                    if ("냉동".equals(ingredient.getStorageLocation())) {
+                        freezerIngredients.add(ingredient);
+                    } else {
+                        fridgeIngredients.add(ingredient);
+                    }
+                }
+
+                // 냉장실과 냉동실 각각에 대한 어댑터 설정
+                ingredientAdapter = new IngredientAdapter(fridgeIngredients, HomeActivity.this);
+                recyclerViewIngredients.setAdapter(ingredientAdapter);
+
+                freezerAdapter = new IngredientAdapter(freezerIngredients, HomeActivity.this);
+                recyclerViewIngredientsFreezer.setAdapter(freezerAdapter);
+
+                ingredientAdapter.notifyDataSetChanged();
+                freezerAdapter.notifyDataSetChanged();
             }
 
             @Override

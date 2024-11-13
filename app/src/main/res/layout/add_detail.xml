@@ -140,7 +140,53 @@
             android:textSize="14sp" />
     </LinearLayout>
 
+    <!-- 저장 장소 입력 -->
+
     <!-- 추가 버튼 -->
+    <LinearLayout
+        android:id="@+id/storageOptions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/label">
+
+        <TextView
+            android:id="@+id/tv_storageLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="저장 장소"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintTop_toTopOf="@id/et_expirationDate" />
+
+        <RadioGroup
+            android:id="@+id/rg_storage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_fridge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="냉장"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/rb_freezer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="냉동"
+                android:textSize="14sp" />
+        </RadioGroup>
+    </LinearLayout>
+
     <Button
         android:id="@+id/btn_ingredient_add"
         android:layout_width="0dp"

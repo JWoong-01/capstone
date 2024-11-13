@@ -52,7 +52,7 @@
             android:contentDescription="재료 추가 버튼" />
     </RelativeLayout>
 
-    <!-- 냉동실 섹션 -->
+    <!-- 냉장실 섹션 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -86,14 +86,13 @@
         </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_ingredients"
+            android:id="@+id/recycler_view_ingredients_fridge"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:layout_marginTop="8dp">
-        </androidx.recyclerview.widget.RecyclerView>
+            android:layout_marginTop="8dp" />
     </LinearLayout>
 
-    <!-- 냉장실 -->
+    <!-- 냉동실 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -114,20 +113,15 @@
                 android:textStyle="bold" />
         </RelativeLayout>
 
-        <FrameLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_ingredients_freezer"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_marginTop="8dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="재료를 추가해보세요!"
-                android:textColor="#CCCCCC" />
-        </FrameLayout>
+        </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 
+    <!-- 하단바 고정 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

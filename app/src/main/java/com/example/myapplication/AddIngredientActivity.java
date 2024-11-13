@@ -10,7 +10,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 public class AddIngredientActivity extends AppCompatActivity {
-    private Button btn_fredge,btn_add_onion;
+    private Button btn_fredge;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

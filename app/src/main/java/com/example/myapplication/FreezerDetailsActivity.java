@@ -15,12 +15,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.VolleyError;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FreezerDetailsActivity extends AppCompatActivity {
     private Button btn_fredge, btnDelete, btnPlus;
     private RecyclerView recyclerViewIngredients;
+    private RecyclerView recyclerViewIngredientsFreezer;
     private IngredientAdapter ingredientAdapter;
+    private IngredientAdapter freezerAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +32,12 @@ public class FreezerDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_freezer_details);
 
         // 레이아웃 요소 초기화
-        recyclerViewIngredients = findViewById(R.id.recycler_view_detail);
+        recyclerViewIngredients = findViewById(R.id.recycler_view_ingredients_fridge);
+        recyclerViewIngredientsFreezer = findViewById(R.id.recycler_view_ingredients_freezer);
         // RecyclerView 레이아웃 매니저 설정
         recyclerViewIngredients.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewIngredientsFreezer.setLayoutManager(new LinearLayoutManager(this));
+
 
         // 재료 리스트 불러오기
         loadIngredients();
@@ -48,17 +55,32 @@ public class FreezerDetailsActivity extends AppCompatActivity {
     }
 
 
-    // 서버에서 재료 목록을 불러오는 메서드
     private void loadIngredients() {
         ApiRequest apiRequest = new ApiRequest(this);
         apiRequest.fetchIngredients(new ApiRequest.IngredientFetchListener() {
             @Override
             public void onFetchSuccess(List<Ingredient> ingredients) {
-                // IngredientAdapter에 재료 목록을 설정
-                ingredientAdapter = new IngredientAdapter(ingredients,FreezerDetailsActivity.this);
-                recyclerViewIngredients.setAdapter(ingredientAdapter);
-                ingredientAdapter.notifyDataSetChanged();  // 데이터 변경 알리기
+                // 재료를 냉장실과 냉동실 리스트로 분리
+                List<Ingredient> fridgeIngredients = new ArrayList<>();
+                List<Ingredient> freezerIngredients = new ArrayList<>();
 
+                for (Ingredient ingredient : ingredients) {
+                    if ("냉동".equals(ingredient.getStorageLocation())) {
+                        freezerIngredients.add(ingredient);
+                    } else {
+                        fridgeIngredients.add(ingredient);
+                    }
+                }
+
+                // 냉장실과 냉동실 각각에 대한 어댑터 설정
+                ingredientAdapter = new IngredientAdapter(fridgeIngredients, FreezerDetailsActivity.this);
+                recyclerViewIngredients.setAdapter(ingredientAdapter);
+
+                freezerAdapter = new IngredientAdapter(freezerIngredients, FreezerDetailsActivity.this);
+                recyclerViewIngredientsFreezer.setAdapter(freezerAdapter);
+
+                ingredientAdapter.notifyDataSetChanged();
+                freezerAdapter.notifyDataSetChanged();
             }
 
             @Override

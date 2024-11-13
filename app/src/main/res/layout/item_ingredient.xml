@@ -16,10 +16,23 @@
     <!-- 텍스트 컨테이너 (각 항목의 이름, 수량, 유통기한을 묶는 레이아웃) -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="32dp"
+        android:layout_height="58dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:paddingTop="8dp"> <!-- 텍스트들을 가로로 중앙 정렬 -->
+        <!-- d-day 텍스트 뷰 -->
+        <TextView
+            android:id="@+id/tv_d_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="D-day"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:background="@drawable/d_day_background"
+            android:padding="3dp"
+            android:layout_marginBottom="4dp" />  <!-- d-day 표시-->
 
         <!-- 재료 이름 텍스트 뷰 -->
         <TextView

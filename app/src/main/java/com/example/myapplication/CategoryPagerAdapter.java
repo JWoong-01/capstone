@@ -20,13 +20,13 @@ public class CategoryPagerAdapter extends FragmentStateAdapter {
             case 1:
                 return new VegetableFragment();  // 채소 카테고리
 //            case 2:
-//                return new DairyFragment();  // 유제품 카테고리
+//               return new DairyFragment();  // 유제품 카테고리
             case 3:
                 return new MeatFragment();  // 고기
-//            case 4:
-//                return new SeafoodFragment();  // 수산물
-//            case 5:
-//                return new SauceFragment();  // 양념
+            case 4:
+                return new SeafoodFragment();  // 수산물
+            case 5:
+                return new SauceFragment();  // 양념
 //             case 6:
 //             return new GrainFragment(); // 곡류
 //            case 7:

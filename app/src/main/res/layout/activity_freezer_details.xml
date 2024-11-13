@@ -6,39 +6,71 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".HomeActivity"
-    android:weightSum="1">
-
-    <!-- 타이틀 텍스트뷰 -->
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="나의 냉장고"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
+    tools:context=".HomeActivity">
     <!-- 냉장실 섹션 -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="16dp"
-        android:layout_weight="1">
+        android:layout_marginTop="16dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/tv_freezer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="냉장실"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_detail"
+            android:id="@+id/recycler_view_ingredients_fridge"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="332dp"
             android:layout_marginTop="8dp" />
     </LinearLayout>
 
-    <!-- 하단바 -->
+    <!-- 냉동실 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
+        android:layout_marginTop="16dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/tv_fridge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="냉동실"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_ingredients_freezer"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:layout_marginTop="8dp">
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
+
+    <!-- 하단바 고정 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:gravity="center"
+        android:orientation="horizontal"
         android:padding="4dp">
 
         <!-- 나의 냉장고 -->

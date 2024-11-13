@@ -1,25 +1,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="90dp"
+    android:layout_height="wrap_content"
     android:padding="8dp"
     android:background="?android:attr/selectableItemBackground"
-    android:orientation="horizontal">
+    android:orientation="vertical"> <!-- orientation을 vertical로 변경 -->
 
     <!-- 이미지 뷰 (벡터 이미지) -->
     <ImageView
         android:id="@+id/ingredient_image"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginEnd="8dp"
-        android:src="@drawable/ic_trashcan"
-        android:layout_gravity="center_vertical" /> <!-- 이미지 중앙 정렬 -->/> <!-- 기본 이미지 -->
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ic_trashcan" /> <!-- 기본 이미지 -->
 
     <!-- 텍스트 컨테이너 (각 항목의 이름, 수량, 유통기한을 묶는 레이아웃) -->
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="90dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingTop="8dp"> <!-- 텍스트들을 가로로 중앙 정렬 -->
 
         <!-- 재료 이름 텍스트 뷰 -->
         <TextView
@@ -27,10 +27,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
+            android:gravity="center"
             android:maxLines="1"
             android:text="Ingredient Name"
             android:textColor="#000000"
-            android:textSize="14sp" />
+            android:textSize="14sp" /> <!-- 텍스트 수평, 수직으로 중앙 정렬 -->
 
         <!-- 수량 텍스트 뷰 -->
         <TextView
@@ -38,10 +39,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
+            android:gravity="center"
             android:maxLines="1"
             android:text="Quantity"
             android:textColor="#666666"
-            android:textSize="12sp" />
+            android:textSize="12sp" /> <!-- 텍스트 수평, 수직으로 중앙 정렬 -->
 
         <!-- 입고 날짜 텍스트 뷰 -->
         <TextView
@@ -49,10 +51,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
+            android:gravity="center"
             android:maxLines="1"
             android:text="Intake Date"
             android:textColor="#666666"
-            android:textSize="12sp" />
+            android:textSize="12sp" /> <!-- 텍스트 수평, 수직으로 중앙 정렬 -->
 
         <!-- 유통기한 텍스트 뷰 -->
         <TextView
@@ -60,23 +63,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
+            android:gravity="center"
             android:maxLines="1"
             android:text="Expiration Date"
             android:textColor="#666666"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/tv_d_day"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:background="@drawable/d_day_background"
-            android:gravity="center"
-            android:padding="3dp"
-            android:text="D-day"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            android:textSize="12sp" /> <!-- 텍스트 수평, 수직으로 중앙 정렬 -->
     </LinearLayout>
     <!-- 삭제 버튼 -->
     <Button
@@ -89,6 +80,4 @@
         android:backgroundTint="#FF0000"
         android:padding="4dp"
         android:layout_marginTop="8dp"/>
-    <!-- d-day 텍스트 뷰 -->
-    <!-- d-day 표시-->
 </LinearLayout>
