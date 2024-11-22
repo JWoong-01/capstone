@@ -107,6 +107,19 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
         return ingredients.size();
     }
 
+    public static class IngredientViewHolder extends RecyclerView.ViewHolder {
+        TextView tvIngredientName;
+
+        public IngredientViewHolder(View itemView) {
+            super(itemView);
+            tvIngredientName = itemView.findViewById(R.id.ingredient_name);
+        }
+    }
+
+    // 재료 목록 반환하는 메서드
+    public List<Ingredient> getIngredients() {
+        return ingredients;
+    }
 
     // ViewHolder 클래스
     public class ViewHolder extends RecyclerView.ViewHolder {

@@ -22,7 +22,7 @@ import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
     private static final int NOTIFICATION_PERMISSION_REQUEST_CODE = 1001;
-    private Button btnEdit, btnDelete, btnPlus, btnSetting;
+    private Button btnEdit, btnDelete, btnPlus, btnSetting, btnRecipe, btnRecipeView;
     private TextView tvTitle;
     private RecyclerView recyclerViewIngredients;
     private RecyclerView recyclerViewIngredientsFreezer;
@@ -47,6 +47,8 @@ public class HomeActivity extends AppCompatActivity {
         btnDelete = findViewById(R.id.btn_delete);
         btnPlus = findViewById(R.id.btn_plus);
         btnSetting = findViewById(R.id.btn_setting);
+        btnRecipe = findViewById(R.id.btn_recipe);
+        btnRecipeView = findViewById(R.id.btn_recipe_view);
         recyclerViewIngredients = findViewById(R.id.recycler_view_ingredients_fridge);
         recyclerViewIngredientsFreezer = findViewById(R.id.recycler_view_ingredients_freezer);
 
@@ -76,6 +78,28 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, SettingActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // 레시피 찾기 버튼 클릭 리스너(모든 레시피)
+        btnRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, RecipeInfoActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // 레시피 보기 버튼 클릭 리스너
+        btnRecipeView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 냉장고와 냉동실에 있는 재료들 추출
+                List<String> ingredients = getIngredientsFromRecyclerViews();
+
+                Intent intent = new Intent(HomeActivity.this, RecipeActivity.class);
+                intent.putStringArrayListExtra("ingredients", (ArrayList<String>) ingredients); // 재료 목록 전달
                 startActivity(intent);
             }
         });
@@ -145,6 +169,26 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    // 저장된 재료들을 RecyclerView에서 추출하는 메서드
+    private List<String> getIngredientsFromRecyclerViews() {
+        List<String> ingredients = new ArrayList<>();
+
+        // 냉장고와 냉동실에 있는 재료들 추출
+        if (ingredientAdapter != null) {
+            for (Ingredient ingredient : ingredientAdapter.getIngredients()) {
+                ingredients.add(ingredient.getName());
+            }
+        }
+
+        if (freezerAdapter != null) {
+            for (Ingredient ingredient : freezerAdapter.getIngredients()) {
+                ingredients.add(ingredient.getName());
+            }
+        }
+
+        return ingredients;
     }
 
     private void loadIngredients() {

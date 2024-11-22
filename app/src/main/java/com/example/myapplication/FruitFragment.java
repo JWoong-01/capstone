@@ -12,13 +12,21 @@ import android.view.ViewGroup;
 
 public class FruitFragment extends Fragment {
 
-    public FruitFragment() {
-        // 기본 생성자
+    private static final String ARG_SEARCH_QUERY = "searchQuery";
+
+    // 새로운 인스턴스를 생성하고 검색어를 전달
+    public static FruitFragment newInstance(String searchQuery) {
+        FruitFragment fragment = new FruitFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_SEARCH_QUERY, searchQuery);  // 검색어 전달
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        String searchQuery = getArguments().getString(ARG_SEARCH_QUERY, "");
         // 카테고리 Fragment 레이아웃을 반환
         return inflater.inflate(R.layout.add_fruit, container, false);
     }

@@ -18,6 +18,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".RecipeDetailActivity"
+            android:exported="true" />
+        <activity
+            android:name=".RecipeActivity"
+            android:exported="true" />
+        <activity
+            android:name=".RecipeInfoActivity"
+            android:exported="true" />
+        <activity
             android:name=".EditIngredientActivity"
             android:exported="false" />
         <activity
@@ -25,7 +34,9 @@
             android:exported="true" />
         <activity
             android:name=".LoginActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.MyApplication"
+            />
         <activity
             android:name=".SettingActivity"
             android:exported="true" />

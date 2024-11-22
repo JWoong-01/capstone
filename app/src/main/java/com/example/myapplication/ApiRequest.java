@@ -10,7 +10,11 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -58,11 +62,25 @@ public class ApiRequest {
         requestQueue.add(stringRequest);
     }
 
-    // 재료 목록을 가져오는 메서드
+
+
     public void fetchIngredients(final IngredientFetchListener listener) {
         String url = "http://yju407.dothome.co.kr/get_ingredients.php"; // 재료를 가져오는 API URL
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+        // 서버로 보낼 파라미터가 필요한 경우, 예를 들어 재료 필터링이나 검색 등을 위한 인코딩을 추가할 수 있음
+        // 예시로 ingredientsParam에 URL 인코딩된 문자열을 추가할 수 있음.
+        StringBuilder ingredientsParam = new StringBuilder();
+        try {
+            // 예시로 'ingredient' 값을 URL 인코딩
+            ingredientsParam.append(URLEncoder.encode("ingredient", "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            Log.e("ApiRequest", "Error encoding ingredients parameter", e);
+        }
+
+        // URL에 파라미터를 추가하는 예시 (만약 서버에서 파라미터를 요구한다면)
+        String finalUrl = url + "?" + ingredientsParam.toString();
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, finalUrl, null,
                 response -> {
                     List<Ingredient> ingredients = parseIngredients(response);
                     listener.onFetchSuccess(ingredients);
@@ -70,12 +88,18 @@ public class ApiRequest {
                 error -> {
                     Log.e("ApiRequest", "Error fetching ingredients", error);
                     listener.onFetchError(error);
-                });
+                }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=UTF-8";  // 응답 인코딩을 UTF-8로 설정
+            }
+        };
 
         // 요청 큐에 추가
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(jsonArrayRequest);
     }
+
 
     // 재료 목록을 파싱하는 메서드
     private List<Ingredient> parseIngredients(JSONArray jsonArray) {
@@ -105,6 +129,76 @@ public class ApiRequest {
             Log.e("ApiRequest", "Error parsing ingredients", e);
         }
         return ingredients;
+    }
+
+    // 재료 목록을 기반으로 레시피를 가져오는 메서드
+    public void fetchRecipesByIngredients(List<String> ingredients, final RecipeFetchListener listener) {
+        String url = "http://yju407.dothome.co.kr/get_recipes.php";
+
+        // 서버로 보낼 파라미터 형성 (재료 목록)
+        StringBuilder ingredientsParam = new StringBuilder();
+        for (String ingredient : ingredients) {
+            try {
+                // 각 재료를 URL 인코딩하여 파라미터에 추가
+                ingredientsParam.append(URLEncoder.encode(ingredient, "UTF-8")).append(",");
+            } catch (UnsupportedEncodingException e) {
+                Log.e("ApiRequest", "Error encoding ingredient: " + ingredient, e);
+            }
+        }
+        // 마지막 쉼표 제거
+        if (ingredientsParam.length() > 0) {
+            ingredientsParam.deleteCharAt(ingredientsParam.length() - 1);
+        }
+
+        // 서버 요청 (재료 목록을 쿼리 파라미터로 전달)
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url + "?ingredients=" + ingredientsParam.toString(),
+                response -> {
+                    // 서버로부터 받은 JSON 응답을 파싱
+                    List<Recipe> recipes = parseRecipes(response);
+                    listener.onFetchSuccess(recipes);
+                },
+                error -> {
+                    Log.e("ApiRequest", "Error fetching recipes", error);
+                    listener.onFetchError(error);
+                }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=UTF-8";  // 응답 인코딩 설정
+            }
+        };
+
+        // 요청 큐에 추가
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+    }
+
+    // 레시피 목록을 파싱하는 메서드
+    private List<Recipe> parseRecipes(String response) {
+        List<Recipe> recipeList = new ArrayList<>();
+        try {
+            // JSON 응답을 JSONObject로 변환
+            JSONObject jsonResponse = new JSONObject(response);
+
+            // "recipes" 배열 추출
+            if (jsonResponse.getBoolean("success")) {
+                JSONArray recipesArray = jsonResponse.getJSONArray("recipes");
+
+                // 배열에서 각 레시피 객체를 추출하여 Recipe 객체로 변환
+                for (int i = 0; i < recipesArray.length(); i++) {
+                    JSONObject recipeObject = recipesArray.getJSONObject(i);
+                    String name = recipeObject.getString("name");
+                    String imageUrl = recipeObject.getString("image_url");
+                    String ingredients = recipeObject.getString("ingredients");
+                    String instructions = recipeObject.getString("instructions");
+
+                    // Recipe 객체를 리스트에 추가
+                    recipeList.add(new Recipe(name, imageUrl, ingredients, instructions));
+                }
+            }
+        } catch (JSONException e) {
+            Log.e("ApiRequest", "Error parsing recipes", e);
+        }
+        return recipeList;
     }
 
     // 재료를 삭제하는 메서드 (이미지 리소스 ID로 삭제)
@@ -177,6 +271,12 @@ public class ApiRequest {
     public interface ApiUpdateListener {
         void onUpdateSuccess();
         void onUpdateError();
+    }
+
+    // 레시피 가져오기 성공/실패 리스너 인터페이스
+    public interface RecipeFetchListener {
+        void onFetchSuccess(List<Recipe> recipes);
+        void onFetchError(VolleyError error);
     }
 
     // 재료 목록을 가져오는 리스너 인터페이스

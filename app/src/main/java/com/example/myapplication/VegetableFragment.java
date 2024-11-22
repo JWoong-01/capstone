@@ -12,8 +12,16 @@ import android.view.ViewGroup;
 
 public class VegetableFragment extends Fragment {
 
-    public VegetableFragment() {
-        // 기본 생성자
+
+    private static final String ARG_SEARCH_QUERY = "searchQuery";
+
+    // 새로운 인스턴스를 생성하고 검색어를 전달
+    public static VegetableFragment newInstance(String searchQuery) {
+        VegetableFragment fragment = new VegetableFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_SEARCH_QUERY, searchQuery);  // 검색어 전달
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
