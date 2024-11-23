@@ -40,21 +40,21 @@
 
                     <!-- 재료 이미지 -->
                     <ImageButton
-                        android:id="@+id/iv_apple"
-                        android:layout_width="44dp"
-                        android:layout_height="55dp"
+                        android:id="@+id/iv_milk"
+                        android:layout_width="36dp"
+                        android:layout_height="58dp"
                         android:layout_gravity="center"
-                        android:background="@drawable/it_apple" />
+                        android:background="@drawable/it_milk" />
                 </FrameLayout>
 
-                <!-- 재료 이름 -->
+                <!-- 우유 -->
                 <TextView
                     android:id="@+id/tv_carrot"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="사과"
+                    android:text="우유"
                     android:textSize="12sp" />
             </LinearLayout>
 
@@ -70,24 +70,24 @@
                     android:layout_height="62dp">
 
                     <ImageButton
-                        android:id="@+id/iv_strawberry"
-                        android:layout_width="46dp"
-                        android:layout_height="50dp"
+                        android:id="@+id/iv_yogurt"
+                        android:layout_width="48dp"
+                        android:layout_height="55dp"
                         android:layout_gravity="center"
-                        android:background="@drawable/it_strawberry" />
+                        android:background="@drawable/it_yogurt" />
                 </FrameLayout>
 
                 <TextView
-                    android:id="@+id/tv_strawberry"
+                    android:id="@+id/tv_paprika"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="딸기"
+                    android:text="요거트"
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <!-- 복숭아 -->
+            <!-- 치즈 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -100,11 +100,11 @@
                     android:layout_height="62dp">
 
                     <ImageButton
-                        android:id="@+id/iv_peach"
-                        android:layout_width="57dp"
-                        android:layout_height="55dp"
+                        android:id="@+id/iv_cheese"
+                        android:layout_width="50dp"
+                        android:layout_height="45dp"
                         android:layout_gravity="center"
-                        android:background="@drawable/it_peach" />
+                        android:background="@drawable/it_cheese" />
                 </FrameLayout>
 
                 <TextView
@@ -113,11 +113,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="복숭아"
+                    android:text="치즈"
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <!-- 오렌지 -->
+            <!-- 두유 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -130,24 +130,24 @@
                     android:layout_height="62dp">
 
                     <ImageButton
-                        android:id="@+id/iv_orange"
-                        android:layout_width="43dp"
-                        android:layout_height="52dp"
+                        android:id="@+id/iv_soymilk"
+                        android:layout_width="36dp"
+                        android:layout_height="58dp"
                         android:layout_gravity="center"
-                        android:background="@drawable/it_orange" />
+                        android:background="@drawable/it_milk" />
                 </FrameLayout>
 
                 <TextView
-                    android:id="@+id/tv_orange"
+                    android:id="@+id/tv_soymilk"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="오렌지"
-                    android:textSize="12sp"/>
+                    android:text="두유"
+                    android:textSize="12sp" />
             </LinearLayout>
 
-            <!-- 포도 -->
+            <!-- 마가린 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -160,24 +160,24 @@
                     android:layout_height="62dp">
 
                     <ImageButton
-                        android:id="@+id/iv_grape"
-                        android:layout_width="52dp"
-                        android:layout_height="49dp"
+                        android:id="@+id/iv_margarine"
+                        android:layout_width="53dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="center"
-                        android:background="@drawable/it_grape" />
+                        android:background="@drawable/it_margarine" />
                 </FrameLayout>
 
                 <TextView
-                    android:id="@+id/tv_potato"
+                    android:id="@+id/tv_margarine"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="포도"
+                    android:text="마가린"
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <!-- 배 -->
+            <!-- 버터 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -190,24 +190,24 @@
                     android:layout_height="62dp">
 
                     <ImageButton
-                        android:id="@+id/iv_pear"
-                        android:layout_width="50dp"
+                        android:id="@+id/iv_butter"
+                        android:layout_width="58dp"
                         android:layout_height="50dp"
                         android:layout_gravity="center"
-                        android:background="@drawable/it_pear" />
+                        android:background="@drawable/it_butter" />
                 </FrameLayout>
 
                 <TextView
-                    android:id="@+id/tv_swpotato"
+                    android:id="@+id/tv_butter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="배"
+                    android:text="버터"
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <!-- 바나나 -->
+            <!-- 아몬드 우유 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -220,24 +220,24 @@
                     android:layout_height="62dp">
 
                     <ImageButton
-                        android:id="@+id/iv_banana"
-                        android:layout_width="47dp"
-                        android:layout_height="47dp"
+                        android:id="@+id/iv_almondmilk"
+                        android:layout_width="36dp"
+                        android:layout_height="55dp"
                         android:layout_gravity="center"
-                        android:background="@drawable/it_banana" />
+                        android:background="@drawable/it_milk" />
                 </FrameLayout>
 
                 <TextView
-                    android:id="@+id/tv_banana"
+                    android:id="@+id/tv_almondmilk"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="바나나"
+                    android:text="아몬드 우유"
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <!-- 체리 -->
+            <!-- 그릭 요거트 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -250,142 +250,24 @@
                     android:layout_height="62dp">
 
                     <ImageButton
-                        android:id="@+id/iv_cherry"
-                        android:layout_width="49dp"
-                        android:layout_height="48dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/it_cherry" />
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/tv_cherry"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center"
-                    android:text="체리"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <!-- 망고 -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="15dp">
-
-                <FrameLayout
-                    android:layout_width="62dp"
-                    android:layout_height="62dp">
-
-                    <ImageButton
-                        android:id="@+id/iv_mango"
-                        android:layout_width="49dp"
-                        android:layout_height="44dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/it_mango" />
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/tv_garlic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center"
-                    android:text="망고"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <!-- 키위 -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="15dp">
-
-                <FrameLayout
-                    android:layout_width="62dp"
-                    android:layout_height="62dp">
-
-                    <ImageButton
-                        android:id="@+id/iv_kiwi"
-                        android:layout_width="54dp"
-                        android:layout_height="45dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/it_kiwi" />
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/tv_kiwi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center"
-                    android:text="키위"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <!-- 파인애플 -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="15dp">
-
-                <FrameLayout
-                    android:layout_width="62dp"
-                    android:layout_height="62dp">
-
-                    <ImageButton
-                        android:id="@+id/iv_pineapple"
+                        android:id="@+id/iv_greekyogurt"
                         android:layout_width="48dp"
-                        android:layout_height="48dp"
+                        android:layout_height="55dp"
                         android:layout_gravity="center"
-                        android:background="@drawable/it_pineapple" />
+                        android:background="@drawable/it_yogurt" />
                 </FrameLayout>
 
                 <TextView
-                    android:id="@+id/tv_pineapple"
+                    android:id="@+id/tv_greekyogurt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="파인애플"
+                    android:text="그릭 요거트"
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <!-- 수박 -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="15dp">
 
-                <FrameLayout
-                    android:layout_width="62dp"
-                    android:layout_height="62dp">
-
-                    <ImageButton
-                        android:id="@+id/iv_watermelon"
-                        android:layout_width="49dp"
-                        android:layout_height="49dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/it_watermelon" />
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/tv_watermelon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center"
-                    android:text="수박"
-                    android:textSize="12sp" />
-            </LinearLayout>
         </GridLayout>
     </ScrollView>
 

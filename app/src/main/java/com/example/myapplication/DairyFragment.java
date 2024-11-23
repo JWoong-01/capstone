@@ -2,65 +2,56 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class VegetableFragment extends Fragment {
+public class DairyFragment extends Fragment {
 
-    public VegetableFragment() {
+    public DairyFragment() {
         // 기본 생성자
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // 카테고리 Fragment 레이아웃을 반환
-        return inflater.inflate(R.layout.add_vegetable, container, false);
+        // 유제품 카테고리 Fragment 레이아웃을 반환
+        return inflater.inflate(R.layout.add_dairy_products, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // 이미지버튼 배열
+        // 버튼 ID 배열
         int[] buttonIds = {
-                R.id.iv_carrot, R.id.iv_paprika, R.id.iv_eggplant, R.id.iv_onion,
-                R.id.iv_potato, R.id.iv_swpotato, R.id.iv_broccoli, R.id.iv_greenonion,
-                R.id.iv_garlic, R.id.iv_zucchini, R.id.iv_pepper, R.id.iv_cabbage,
-                R.id.iv_bokchoy, R.id.iv_radish,  R.id.iv_cucumber, R.id.iv_lettuce,
-                R.id.iv_mushroom
+                R.id.iv_milk, R.id.iv_yogurt, R.id.iv_cheese, R.id.iv_soymilk,
+                R.id.iv_margarine, R.id.iv_butter, R.id.iv_almondmilk, R.id.iv_greekyogurt
         };
 
         // 재료 이름 배열
         String[] itemNames = {
-                "당근", "피망", "가지", "양파", "감자", "고구마", "브로콜리", "대파",
-                "마늘", "애호박", "고추", "양배추", "청경채", "무", "오이", "상추", "버섯"
+                "우유", "요거트", "치즈", "두유", "마가린", "버터", "아몬드 우유", "그릭 요거트"
         };
 
         // 재료 이미지 리소스 배열
         int[] itemImages = {
-                R.drawable.it_carrot, R.drawable.it_paprika, R.drawable.it_eggplant,
-                R.drawable.it_onion, R.drawable.it_potato, R.drawable.it_sweetpotato,
-                R.drawable.it_broccoli, R.drawable.it_greenonion, R.drawable.it_garlic,
-                R.drawable.it_zucchini, R.drawable.it_pepper, R.drawable.it_cabbage,
-                R.drawable.it_bokchoy, R.drawable.it_radish, R.drawable.it_cucumber,
-                R.drawable.it_lettuce, R.drawable.it_mushroom
+                R.drawable.it_milk, R.drawable.it_yogurt, R.drawable.it_cheese, R.drawable.it_milk,
+                R.drawable.it_margarine, R.drawable.it_butter, R.drawable.it_milk, R.drawable.it_yogurt
         };
-
 
         // 각 버튼에 클릭 리스너 추가
         for (int i = 0; i < buttonIds.length; i++) {
             final int index = i;  // 클릭 리스너 안에서 사용하기 위한 인덱스
             View button = view.findViewById(buttonIds[i]);
 
-            // 이미지버튼이 null인지 확인
+            // 버튼이 null인지 확인
             if (button == null) {
-                Log.e("VegetableFragment", "Button with ID " + buttonIds[i] + " not found!");
+                Log.e("DairyFragment", "Button with ID " + buttonIds[i] + " not found!");
                 continue;  // 버튼을 찾을 수 없으면 다음 버튼으로 넘어감
             }
 

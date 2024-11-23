@@ -4,19 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 public class AddIngredientActivity extends AppCompatActivity {
-    private Button btn_fredge;
-    private EditText searchBar;  // EditText 객체
-
+    private Button btn_fredge, btn_input;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +47,9 @@ public class AddIngredientActivity extends AppCompatActivity {
                         case 5:
                             tab.setText("양념");
                             break;
+                        case 6:
+                            tab.setText("곡류");
+                            break;
                         default:
                             tab.setText("기타");
                             break;
@@ -70,22 +68,15 @@ public class AddIngredientActivity extends AppCompatActivity {
             }
         });
 
-        // 검색바 처리
-        searchBar = findViewById(R.id.search_bar);
-        searchBar.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int start, int before, int count) {
-            }
+        // btn_input(직접추가) 버튼 초기화
+        btn_input = findViewById(R.id.btn_input);
 
+        // btn_input 클릭 리스너 설정
+        btn_input.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-                // 검색어가 변경될 때마다 어댑터에 전달
-                adapter.setSearchQuery(charSequence.toString());
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
+            public void onClick(View v) {
+                Intent intent = new Intent(AddIngredientActivity.this, UserAddIngredientActivity.class);
+                startActivity(intent);
             }
         });
     }

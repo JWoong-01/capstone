@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:padding="16dp">
 
     <ScrollView
@@ -20,13 +19,12 @@
             android:id="@+id/ingredient_grid"
             android:layout_width="380dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:alignmentMode="alignMargins"
             android:columnCount="4"
             android:columnOrderPreserved="false"
             android:padding="5dp">
 
-            <!-- 재료 -->
+            <!-- 재료 추가 고등어 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -40,55 +38,25 @@
 
                     <!-- 재료 이미지 -->
                     <ImageButton
-                        android:id="@+id/iv_carrot"
-                        android:layout_width="23dp"
-                        android:layout_height="match_parent"
+                        android:id="@+id/iv_mackerel"
+                        android:layout_width="55dp"
+                        android:layout_height="58dp"
                         android:layout_gravity="center"
-                        android:background="@drawable/it_carrot" />
+                        android:background="@drawable/it_fish" />
                 </FrameLayout>
 
                 <!-- 재료 이름 -->
-                <TextView
-                    android:id="@+id/tv_carrot"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center"
-                    android:text="당근"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <!-- 피망 -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="15dp">
-
-                <FrameLayout
-                    android:layout_width="62dp"
-                    android:layout_height="62dp">
-
-                    <ImageButton
-                        android:id="@+id/iv_paprika"
-                        android:layout_width="58dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/it_paprika" />
-                </FrameLayout>
-
                 <TextView
                     android:id="@+id/tv_paprika"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="피망"
+                    android:text="고등어"
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <!-- 가지 -->
+            <!-- 오징어 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -101,11 +69,11 @@
                     android:layout_height="62dp">
 
                     <ImageButton
-                        android:id="@+id/iv_eggplant"
-                        android:layout_width="55dp"
-                        android:layout_height="35dp"
+                        android:id="@+id/iv_squid"
+                        android:layout_width="49dp"
+                        android:layout_height="47dp"
                         android:layout_gravity="center"
-                        android:background="@drawable/it_eggplant" />
+                        android:background="@drawable/it_squid" />
                 </FrameLayout>
 
                 <TextView
@@ -114,11 +82,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="가지"
+                    android:text="오징어"
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <!-- 양파 -->
+            <!-- 새우 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -131,11 +99,11 @@
                     android:layout_height="62dp">
 
                     <ImageButton
-                        android:id="@+id/iv_onion"
-                        android:layout_width="55dp"
-                        android:layout_height="45dp"
+                        android:id="@+id/iv_shrimp"
+                        android:layout_width="50dp"
+                        android:layout_height="49dp"
                         android:layout_gravity="center"
-                        android:background="@drawable/it_onion" />
+                        android:background="@drawable/it_shrimp" />
                 </FrameLayout>
 
                 <TextView
@@ -144,11 +112,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="양파"
-                    android:textSize="12sp" />
+                    android:text="새우"
+                    android:textSize="12sp"/>
             </LinearLayout>
 
-            <!-- 감자 -->
+            <!-- 게 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -161,11 +129,11 @@
                     android:layout_height="62dp">
 
                     <ImageButton
-                        android:id="@+id/iv_potato"
+                        android:id="@+id/iv_crab"
                         android:layout_width="49dp"
                         android:layout_height="47dp"
                         android:layout_gravity="center"
-                        android:background="@drawable/it_potato" />
+                        android:background="@drawable/it_crab" />
                 </FrameLayout>
 
                 <TextView
@@ -174,11 +142,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="감자"
+                    android:text="게"
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <!-- 고구마 -->
+            <!-- 문어 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -191,54 +159,24 @@
                     android:layout_height="62dp">
 
                     <ImageButton
-                        android:id="@+id/iv_swpotato"
-                        android:layout_width="50dp"
-                        android:layout_height="45dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/it_sweetpotato" />
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/tv_swpotato"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center"
-                    android:text="고구마"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <!-- 브로콜리 -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="15dp">
-
-                <FrameLayout
-                    android:layout_width="62dp"
-                    android:layout_height="62dp">
-
-                    <ImageButton
-                        android:id="@+id/iv_broccoli"
-                        android:layout_width="47dp"
+                        android:id="@+id/iv_octopus"
+                        android:layout_width="49dp"
                         android:layout_height="47dp"
                         android:layout_gravity="center"
-                        android:background="@drawable/it_broccoli" />
+                        android:background="@drawable/it_octopus" />
                 </FrameLayout>
 
                 <TextView
-                    android:id="@+id/tv_broccoli"
+                    android:id="@+id/tv_octopus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="브로콜리"
+                    android:text="문어"
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <!-- 대파 -->
+            <!-- 낙지 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -251,144 +189,24 @@
                     android:layout_height="62dp">
 
                     <ImageButton
-                        android:id="@+id/iv_greenonion"
-                        android:layout_width="35dp"
-                        android:layout_height="48dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/it_greenonion" />
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/tv_greenonion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center"
-                    android:text="대파"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <!-- 마늘 -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="15dp">
-
-                <FrameLayout
-                    android:layout_width="62dp"
-                    android:layout_height="62dp">
-
-                    <ImageButton
-                        android:id="@+id/iv_garlic"
-                        android:layout_width="46dp"
-                        android:layout_height="48dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/it_garlic" />
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/tv_garlic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center"
-                    android:text="마늘"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <!-- 애호박 -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="15dp">
-
-                <FrameLayout
-                    android:layout_width="62dp"
-                    android:layout_height="62dp">
-
-                    <ImageButton
-                        android:id="@+id/iv_zucchini"
-                        android:layout_width="43dp"
-                        android:layout_height="50dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/it_zucchini" />
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/tv_zucchini"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center"
-                    android:text="애호박"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <!-- 고추 -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="15dp">
-
-                <FrameLayout
-                    android:layout_width="62dp"
-                    android:layout_height="62dp">
-
-                    <ImageButton
-                        android:id="@+id/iv_pepper"
-                        android:layout_width="35dp"
-                        android:layout_height="48dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/it_pepper" />
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/tv_pepper"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center"
-                    android:text="고추"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <!-- 양배추 -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="15dp">
-
-                <FrameLayout
-                    android:layout_width="62dp"
-                    android:layout_height="62dp">
-
-                    <ImageButton
-                        android:id="@+id/iv_cabbage"
+                        android:id="@+id/iv_octopus2"
                         android:layout_width="49dp"
-                        android:layout_height="49dp"
+                        android:layout_height="47dp"
                         android:layout_gravity="center"
-                        android:background="@drawable/it_cabbage" />
+                        android:background="@drawable/it_squid" />
                 </FrameLayout>
 
                 <TextView
-                    android:id="@+id/tv_cabbage"
+                    android:id="@+id/tv_octopus2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="양배추"
+                    android:text="낙지"
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <!-- 청경채 -->
+            <!-- 연어 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -401,24 +219,24 @@
                     android:layout_height="62dp">
 
                     <ImageButton
-                        android:id="@+id/iv_bokchoy"
-                        android:layout_width="49dp"
-                        android:layout_height="49dp"
+                        android:id="@+id/iv_salmon"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
                         android:layout_gravity="center"
-                        android:background="@drawable/it_bokchoy" />
+                        android:background="@drawable/it_fish" />
                 </FrameLayout>
 
                 <TextView
-                    android:id="@+id/tv_bokchoy"
+                    android:id="@+id/tv_salmon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="청경채"
+                    android:text="연어"
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <!-- 무 -->
+            <!-- 조개류 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -431,24 +249,24 @@
                     android:layout_height="62dp">
 
                     <ImageButton
-                        android:id="@+id/iv_radish"
+                        android:id="@+id/iv_clam"
                         android:layout_width="49dp"
-                        android:layout_height="49dp"
+                        android:layout_height="47dp"
                         android:layout_gravity="center"
-                        android:background="@drawable/it_radish" />
+                        android:background="@drawable/it_clam" />
                 </FrameLayout>
 
                 <TextView
-                    android:id="@+id/tv_radish"
+                    android:id="@+id/tv_clam"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="무"
+                    android:text="조개"
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <!-- 오이 -->
+            <!-- 방어 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -461,24 +279,24 @@
                     android:layout_height="62dp">
 
                     <ImageButton
-                        android:id="@+id/iv_cucumber"
-                        android:layout_width="49dp"
-                        android:layout_height="49dp"
+                        android:id="@+id/iv_yellowtail"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
                         android:layout_gravity="center"
-                        android:background="@drawable/it_cucumber" />
+                        android:background="@drawable/it_fish" />
                 </FrameLayout>
 
                 <TextView
-                    android:id="@+id/tv_cucumber"
+                    android:id="@+id/tv_yellowtail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="오이"
+                    android:text="방어"
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <!-- 상추 -->
+            <!--  성게  -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -491,24 +309,24 @@
                     android:layout_height="62dp">
 
                     <ImageButton
-                        android:id="@+id/iv_lettuce"
+                        android:id="@+id/iv_urchin"
                         android:layout_width="49dp"
-                        android:layout_height="49dp"
+                        android:layout_height="47dp"
                         android:layout_gravity="center"
-                        android:background="@drawable/it_lettuce" />
+                        android:background="@drawable/it_urchin" />
                 </FrameLayout>
 
                 <TextView
-                    android:id="@+id/tv_lettuce"
+                    android:id="@+id/tv_urchin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="상추"
+                    android:text="성게"
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <!-- 버섯 -->
+            <!-- 굴 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -521,20 +339,260 @@
                     android:layout_height="62dp">
 
                     <ImageButton
-                        android:id="@+id/iv_mushroom"
+                        android:id="@+id/iv_oysters"
                         android:layout_width="49dp"
-                        android:layout_height="49dp"
+                        android:layout_height="47dp"
                         android:layout_gravity="center"
-                        android:background="@drawable/it_mushroom" />
+                        android:background="@drawable/it_clam" />
                 </FrameLayout>
 
                 <TextView
-                    android:id="@+id/tv_mushroom"
+                    android:id="@+id/tv_oysters"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="버섯"
+                    android:text="굴"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- 홍합 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <FrameLayout
+                    android:layout_width="62dp"
+                    android:layout_height="62dp">
+
+                    <ImageButton
+                        android:id="@+id/iv_mussel"
+                        android:layout_width="49dp"
+                        android:layout_height="47dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/it_clam" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_mussel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:text="홍합"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- 전복 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <FrameLayout
+                    android:layout_width="62dp"
+                    android:layout_height="62dp">
+
+                    <ImageButton
+                        android:id="@+id/iv_abalone"
+                        android:layout_width="49dp"
+                        android:layout_height="47dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/it_clam" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_abalone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:text="전복"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- 미역 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <FrameLayout
+                    android:layout_width="62dp"
+                    android:layout_height="62dp">
+
+                    <ImageButton
+                        android:id="@+id/iv_seaweed"
+                        android:layout_width="49dp"
+                        android:layout_height="47dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/it_seaweed" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_seaweed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:text="미역"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- 다시마 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <FrameLayout
+                    android:layout_width="62dp"
+                    android:layout_height="62dp">
+
+                    <ImageButton
+                        android:id="@+id/iv_kelp"
+                        android:layout_width="49dp"
+                        android:layout_height="47dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/it_seaweed" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_kelp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:text="다시마"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- 동태 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <FrameLayout
+                    android:layout_width="62dp"
+                    android:layout_height="62dp">
+
+                    <ImageButton
+                        android:id="@+id/iv_pollock"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/it_fish" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_pollock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:text="동태"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- 멸치 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <FrameLayout
+                    android:layout_width="62dp"
+                    android:layout_height="62dp">
+
+                    <ImageButton
+                        android:id="@+id/iv_anchovy"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/it_fish" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_anchovy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:text="멸치"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- 갈치 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <FrameLayout
+                    android:layout_width="62dp"
+                    android:layout_height="62dp">
+
+                    <ImageButton
+                        android:id="@+id/iv_hairtail"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/it_fish" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_hairtail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:text="갈치"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!--꽁치 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <FrameLayout
+                    android:layout_width="62dp"
+                    android:layout_height="62dp">
+
+                    <ImageButton
+                        android:id="@+id/iv_pacific_saury"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/it_fish" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_pacific_saury"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:text="꽁치"
                     android:textSize="12sp" />
             </LinearLayout>
         </GridLayout>

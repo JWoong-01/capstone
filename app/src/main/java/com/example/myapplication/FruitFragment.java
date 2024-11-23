@@ -12,21 +12,13 @@ import android.view.ViewGroup;
 
 public class FruitFragment extends Fragment {
 
-    private static final String ARG_SEARCH_QUERY = "searchQuery";
-
-    // 새로운 인스턴스를 생성하고 검색어를 전달
-    public static FruitFragment newInstance(String searchQuery) {
-        FruitFragment fragment = new FruitFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_SEARCH_QUERY, searchQuery);  // 검색어 전달
-        fragment.setArguments(args);
-        return fragment;
+    public FruitFragment() {
+        // 기본 생성자
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        String searchQuery = getArguments().getString(ARG_SEARCH_QUERY, "");
         // 카테고리 Fragment 레이아웃을 반환
         return inflater.inflate(R.layout.add_fruit, container, false);
     }
@@ -37,9 +29,9 @@ public class FruitFragment extends Fragment {
 
         // 버튼 ID 배열
         int[] buttonIds = {
-                R.id.btn_add_1, R.id.btn_add_2, R.id.btn_add_3, R.id.btn_add_4,
-                R.id.btn_add_5, R.id.btn_add_6, R.id.btn_add_7, R.id.btn_add_8,
-                R.id.btn_add_9, R.id.btn_add_10, R.id.btn_add_11, R.id.btn_add_12
+                R.id.iv_apple, R.id.iv_strawberry, R.id.iv_orange, R.id.iv_peach,
+                R.id.iv_grape, R.id.iv_pear, R.id.iv_banana, R.id.iv_cherry,
+                R.id.iv_mango, R.id.iv_kiwi, R.id.iv_pineapple, R.id.iv_watermelon
         };
 
         // 재료 이름 배열
