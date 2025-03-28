@@ -1,3 +1,4 @@
+
 package com.example.myapplication;
 
 import android.content.pm.PackageManager;
@@ -43,7 +44,6 @@ public class HomeActivity extends AppCompatActivity {
 
         // 레이아웃 요소 초기화
         tvTitle = findViewById(R.id.tv_title);
-        btnEdit = findViewById(R.id.btn_edit);
         btnDelete = findViewById(R.id.btn_delete);
         btnPlus = findViewById(R.id.btn_plus);
         btnSetting = findViewById(R.id.btn_setting);
@@ -108,7 +108,7 @@ public class HomeActivity extends AppCompatActivity {
         btnPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, AddIngredientActivity.class);
+                Intent intent = new Intent(HomeActivity.this, ScanReceipt.class);
                 startActivity(intent);
             }
         });
