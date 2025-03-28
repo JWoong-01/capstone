@@ -40,6 +40,7 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.volley)
+    implementation(libs.play.services.mlkit.text.recognition.common)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -52,6 +53,8 @@ dependencies {
 
     // ML Kit 의존성 (바코드 스캔)
     implementation("com.google.mlkit:barcode-scanning:17.3.0")
+    // ML Kit 의존성 (영수증 스캔)
+    implementation ("com.google.mlkit:text-recognition:16.0.0")
     //AppCompatActivity 의존
     implementation ("androidx.appcompat:appcompat:1.7.0")
     // Retrofit 의존성 (API 호출)

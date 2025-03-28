@@ -12,9 +12,15 @@ public class ScanReceipt extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scan_receipt);
 
+        Button scanButton = findViewById(R.id.scan_text);
         Button cancelButton = findViewById(R.id.btn_cancel);
         Button inputButton = findViewById(R.id.tab_input);
 
+        // 취소 버튼 클릭
+        scanButton.setOnClickListener(v -> {
+            Intent intent = new Intent(ScanReceipt.this, ReceiptScannerActivity.class);
+            startActivity(intent);
+        });
 
         // 취소 버튼 클릭
         cancelButton.setOnClickListener(v -> {
