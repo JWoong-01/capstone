@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,7 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class AddDetailActivity extends AppCompatActivity {
 
-    private Button btnBack, btnDecreaseQuantity, btnIncreaseQuantity, btnIngredientAdd;
+    private Button btn_fredge, btnSetting,btnRecipe,btnBack, btnDecreaseQuantity, btnIncreaseQuantity, btnIngredientAdd;
     private TextView tvItemName, quantityText;
     private ImageView ivItemImage;
     private EditText etExpirationDate;
@@ -49,6 +50,34 @@ public class AddDetailActivity extends AppCompatActivity {
 
         // 초기 수량 설정
         quantityText.setText(String.valueOf(quantity));
+
+        btnSetting = findViewById(R.id.btn_setting);
+        btnRecipe = findViewById(R.id.btn_recipe);
+        btn_fredge = findViewById(R.id.btn_fredge);
+
+        btn_fredge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddDetailActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddDetailActivity.this, SettingActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddDetailActivity.this, RecipeActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
 

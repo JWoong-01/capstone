@@ -1,7 +1,5 @@
 package com.example.myapplication;
 
-import java.util.List;
-
 public class Recipe {
 
     private String name; // 레시피 이름

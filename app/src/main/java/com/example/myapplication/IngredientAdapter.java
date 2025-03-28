@@ -1,6 +1,5 @@
 package com.example.myapplication;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -125,7 +124,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTextView, quantityTextView, intakeDate, expirationDateTextView, dDayTextView;
         public ImageView imageView;
-        Button editButton, deleteButton;
+        Button deleteButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -135,7 +134,6 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
             intakeDate = itemView.findViewById(R.id.ingredient_intake_date);
             expirationDateTextView = itemView.findViewById(R.id.ingredient_expiration_date);
             imageView = itemView.findViewById(R.id.ingredient_image);
-            editButton = itemView.findViewById(R.id.btn_edit);
             deleteButton = itemView.findViewById(R.id.btn_delete);
             dDayTextView = itemView.findViewById(R.id.tv_d_day);  // dDayTextView 초기화
 

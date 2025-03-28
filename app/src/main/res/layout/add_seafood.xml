@@ -19,6 +19,7 @@
             android:id="@+id/ingredient_grid"
             android:layout_width="380dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:alignmentMode="alignMargins"
             android:columnCount="4"
             android:columnOrderPreserved="false"

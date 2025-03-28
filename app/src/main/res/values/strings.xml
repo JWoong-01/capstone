@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">FreshBox</string>
     <string name="itemImage">재료 이미지</string>
     <string name="itemName">양파</string>
 </resources>

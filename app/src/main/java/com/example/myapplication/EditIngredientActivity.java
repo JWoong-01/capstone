@@ -22,8 +22,6 @@ import java.util.Locale;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.VolleyError;
-
 public class EditIngredientActivity extends AppCompatActivity {
 
     private Button btnBack, btnDecreaseQuantity, btnIncreaseQuantity, btnSave, btn_fredge;

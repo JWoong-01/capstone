@@ -1,7 +1,10 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,6 +15,7 @@ import java.util.List;
 
 public class RecipeActivity extends AppCompatActivity {
 
+    private Button btn_fredge, btnSetting,btnRecipe;
     private RecyclerView recyclerViewRecipes;
     private RecipeAdapter recipeAdapter;
     private List<Recipe> recipeList;
@@ -20,6 +24,34 @@ public class RecipeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
+
+        btnSetting = findViewById(R.id.btn_setting);
+        btnRecipe = findViewById(R.id.btn_recipe);
+        btn_fredge = findViewById(R.id.btn_fredge);
+
+        btn_fredge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RecipeActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RecipeActivity.this, SettingActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RecipeActivity.this, RecipeActivity.class);
+                startActivity(intent);
+            }
+        });
 
         // RecyclerView 초기화
         recyclerViewRecipes = findViewById(R.id.recycler_view_recipes);
