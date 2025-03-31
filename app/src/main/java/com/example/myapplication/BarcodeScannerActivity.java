@@ -2,16 +2,16 @@ package com.example.myapplication;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.R;
 import com.google.mlkit.vision.barcode.common.Barcode;
 import com.google.mlkit.vision.barcode.BarcodeScanner;
 import com.google.mlkit.vision.barcode.BarcodeScanning;
 import com.google.mlkit.vision.common.InputImage;
-
-import androidx.camera.core.Camera;
 import androidx.camera.core.CameraSelector;
 import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.Preview;
@@ -21,65 +21,76 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.camera.view.PreviewView;
 import android.content.pm.PackageManager;
-
+import java.util.HashSet;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class BarcodeScannerActivity extends AppCompatActivity {
-    private PreviewView cameraPreview;  // PreviewView로 변경
+    private PreviewView cameraPreview;
     private ExecutorService cameraExecutor;
     private BarcodeScanner scanner;
+    private HashSet<String> scannedBarcodes = new HashSet<>();
+    private ProcessCameraProvider cameraProvider;
+    private ImageAnalysis imageAnalysis;
+    private boolean isScanning = false;  // 🔥 버튼 눌렀을 때만 스캔하도록 설정
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barcode_scanner);
 
-        cameraPreview = findViewById(R.id.preview_view);  // PreviewView로 변경
+        cameraPreview = findViewById(R.id.preview_view);
+        ImageButton scanButton = findViewById(R.id.button_capture);  // 🔥 버튼 추가 (레이아웃에서 추가 필요)
 
         scanner = BarcodeScanning.getClient();
         cameraExecutor = Executors.newSingleThreadExecutor();
 
-        // 카메라 권한 체크
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-            startCamera();
+            setupCamera();
         } else {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, 1);
         }
+
+        // 🔥 버튼 클릭 시 스캔 실행
+        scanButton.setOnClickListener(v -> startScanning());
     }
 
-    // 카메라 시작
-    private void startCamera() {
-        // 카메라 권한이 허용되면 카메라 시작
+    private void setupCamera() {
         ProcessCameraProvider.getInstance(this).addListener(() -> {
             try {
-                ProcessCameraProvider cameraProvider = ProcessCameraProvider.getInstance(this).get();
+                cameraProvider = ProcessCameraProvider.getInstance(this).get();
+                Preview preview = new Preview.Builder().build();
+                preview.setSurfaceProvider(cameraPreview.getSurfaceProvider());
 
-                                Preview preview = new Preview.Builder().build();
-                preview.setSurfaceProvider(cameraPreview.getSurfaceProvider());  // setSurfaceProvider() 사용
-
-                // 카메라 설정
                 CameraSelector cameraSelector = new CameraSelector.Builder()
-                        .requireLensFacing(CameraSelector.LENS_FACING_BACK) // 후면 카메라 사용
+                        .requireLensFacing(CameraSelector.LENS_FACING_BACK)
                         .build();
 
-                // 이미지 분석기 설정
-                ImageAnalysis imageAnalysis = new ImageAnalysis.Builder().build();
+                imageAnalysis = new ImageAnalysis.Builder().build();
                 imageAnalysis.setAnalyzer(cameraExecutor, imageProxy -> {
+                    if (!isScanning) {
+                        imageProxy.close();
+                        return;
+                    }
+
                     try {
-                        // 이미지 분석: ImageProxy에서 이미지를 InputImage로 변환
                         InputImage image = InputImage.fromMediaImage(imageProxy.getImage(), imageProxy.getImageInfo().getRotationDegrees());
 
-                        // 바코드 스캔 처리
                         scanner.process(image)
                                 .addOnSuccessListener(barcodes -> {
                                     for (Barcode barcode : barcodes) {
                                         String barcodeValue = barcode.getRawValue();
-                                        Log.d("Barcode", "Scanned: " + barcodeValue);
 
-                                        // API 호출
-                                        fetchProductInfo(barcodeValue);
+                                        if (barcodeValue != null && !scannedBarcodes.contains(barcodeValue)) {
+                                            scannedBarcodes.add(barcodeValue);
+                                            Log.d("Barcode", "Scanned: " + barcodeValue);
+
+                                            runOnUiThread(() -> Toast.makeText(this, "상품 정보 검색: " + barcodeValue, Toast.LENGTH_SHORT).show());
+
+                                            fetchProductInfo(barcodeValue);
+                                            isScanning = false; // 🔥 스캔 후 다시 버튼을 눌러야 가능하도록 설정
+                                        }
                                     }
                                 })
                                 .addOnFailureListener(e -> Log.e("Barcode", "Failed to scan barcode", e))
@@ -90,7 +101,6 @@ public class BarcodeScannerActivity extends AppCompatActivity {
                     }
                 });
 
-                // 카메라 바인딩
                 cameraProvider.bindToLifecycle((LifecycleOwner) this, cameraSelector, preview, imageAnalysis);
 
             } catch (ExecutionException | InterruptedException e) {
@@ -99,16 +109,20 @@ public class BarcodeScannerActivity extends AppCompatActivity {
         }, ContextCompat.getMainExecutor(this));
     }
 
-    // Open Food Facts API 호출 메서드
+    // 🔥 버튼 클릭 시 스캔 활성화
+    private void startScanning() {
+        scannedBarcodes.clear();
+        isScanning = true;
+        Toast.makeText(this, "스캔을 시작합니다. 바코드를 카메라에 맞춰주세요.", Toast.LENGTH_SHORT).show();
+    }
+
     private void fetchProductInfo(String barcode) {
-        // API 호출 로직
-        Toast.makeText(this, "Product Info for barcode: " + barcode, Toast.LENGTH_SHORT).show();
+        Log.d("API", "Fetching product info for barcode: " + barcode);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // 종료 시 카메라 executor 종료
         cameraExecutor.shutdown();
     }
 }

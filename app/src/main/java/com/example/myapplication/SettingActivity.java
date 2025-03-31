@@ -113,7 +113,7 @@ public class SettingActivity extends AppCompatActivity {
 
         BarcodeApiService apiService = retrofit.create(BarcodeApiService.class);
         Call<ProductResponse> call = apiService.getProduct(barcode);
-
+//추후 ScanReceipt 파일로 이동 예정
         call.enqueue(new Callback<ProductResponse>() {
             @Override
             public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {

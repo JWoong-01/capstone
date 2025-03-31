@@ -3,12 +3,91 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".BarcodeScannerActivity">
+    android:layout_height="match_parent">
 
+    <!-- 상단바 -->
+
+    <!-- 카메라 프리뷰 -->
+
+    <!-- 하단바 -->
 
     <androidx.camera.view.PreviewView
-        android:id="@+id/preview_view"
+        android:id="@+id/camera_preview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <View
+            android:id="@+id/top_controls"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:background="#000000"
+            tools:ignore="MissingConstraints" />
+    </androidx.camera.view.PreviewView>
+
+    <View
+        android:id="@+id/bottom_controls"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:background="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- 취소 버튼 -->
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="취소"
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp" />
+
+    <!-- 카메라 버튼 -->
+    <ImageButton
+        android:id="@+id/button_capture"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/camera_button"
+        app:layout_constraintBottom_toBottomOf="@id/bottom_controls"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/bottom_controls" />
+
+    <!-- 직접입력 버튼 -->
+    <Button
+        android:id="@+id/tab_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@android:color/transparent"
+        android:text="직접입력"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@id/bottom_controls"
+        app:layout_constraintEnd_toEndOf="@id/bottom_controls" />
+
+    <!-- 영수증 버튼 -->
+    <Button
+        android:id="@+id/scan_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@android:color/transparent"
+        android:text="영수증/명세표"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/bottom_controls"
+        app:layout_constraintTop_toBottomOf="@+id/button_capture"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="16dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
