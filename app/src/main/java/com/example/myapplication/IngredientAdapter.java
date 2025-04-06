@@ -21,13 +21,13 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
     private ApiRequest apiRequest;
     private boolean isDeleteMode = false;  // 삭제 모드 상태
 
-
     // Constructor
     public IngredientAdapter(List<Ingredient> ingredients, Context context) {
         this.ingredients = ingredients;
         this.context = context;
         apiRequest = new ApiRequest(context); // ApiRequest 인스턴스 생성
     }
+
     public void setDeleteMode(boolean isDeleteMode) {
         this.isDeleteMode = isDeleteMode;
         notifyDataSetChanged();  // 삭제 모드가 변경되었으므로 Adapter를 새로고침
@@ -47,37 +47,33 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        // 해당 position의 재료 데이터를 가져옴
         Ingredient ingredient = ingredients.get(position);
-        String expirationDateString = ingredient.getFormattedExpirationDate();
 
-        // 재료 이름, 수량, 유통기한 등을 표시
+        // 값 바인딩
         holder.nameTextView.setText(ingredient.getName());
         holder.quantityTextView.setText(ingredient.getQuantity() + "개");
-        holder.intakeDate.setText("입고날짜 "+ ingredient.getIntakeDate());
+        holder.unitTextView.setText("단위: " + ingredient.getUnit());  // ✅ 단위 추가
+        holder.intakeDate.setText("입고날짜 " + ingredient.getIntakeDate());
         holder.expirationDateTextView.setText("유통기한: " + ingredient.getFormattedExpirationDate());
+
+        // 이미지 설정
         int imageResId = ingredient.getImageResId();
         holder.imageView.setImageResource(imageResId);
+
         // D-Day 계산 및 표시
         String dDayText = ingredient.calculateDDay();
-        holder.dDayTextView.setText(dDayText); // dDayTextView에 D-day 설정
+        holder.dDayTextView.setText(dDayText);
 
         // 삭제 모드일 때만 삭제 버튼을 보여줌
-        if (isDeleteMode) {
-            holder.deleteButton.setVisibility(View.VISIBLE);
-        } else {
-            holder.deleteButton.setVisibility(View.GONE);
-        }
+        holder.deleteButton.setVisibility(isDeleteMode ? View.VISIBLE : View.GONE);
 
         // 삭제 버튼 클릭 시 서버에 삭제 요청
         holder.deleteButton.setOnClickListener(v -> {
-            int currentPosition = holder.getAdapterPosition();  // 현재 아이템의 위치 가져오기
+            int currentPosition = holder.getAdapterPosition();
             if (currentPosition != RecyclerView.NO_POSITION) {
-                // 서버에 이미지 리소스를 기준으로 삭제 요청
                 apiRequest.deleteIngredientByImage(imageResId, new ApiRequest.ApiDeleteListener() {
                     @Override
                     public void onDeleteSuccess() {
-                        // 삭제 성공 시 해당 아이템을 목록에서 제거
                         ingredients.remove(currentPosition);
                         notifyItemRemoved(currentPosition);
                         notifyItemRangeChanged(currentPosition, ingredients.size());
@@ -85,58 +81,47 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
 
                     @Override
                     public void onDeleteError() {
-                        // 오류 발생 시 사용자에게 알림
                         Toast.makeText(context, "삭제 실패", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         });
 
-        // 수정 버튼 클릭 시 수정 화면으로 이동
+        // 클릭 시 수정 액티비티로 이동
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, EditIngredientActivity.class);
-            intent.putExtra("ingredient", ingredient);  // Ingredient 객체를 전달
+            intent.putExtra("ingredient", ingredient);
             context.startActivity(intent);
         });
     }
-
 
     @Override
     public int getItemCount() {
         return ingredients.size();
     }
 
-    public static class IngredientViewHolder extends RecyclerView.ViewHolder {
-        TextView tvIngredientName;
-
-        public IngredientViewHolder(View itemView) {
-            super(itemView);
-            tvIngredientName = itemView.findViewById(R.id.ingredient_name);
-        }
-    }
-
-    // 재료 목록 반환하는 메서드
+    // 재료 목록 반환
     public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
     // ViewHolder 클래스
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView nameTextView, quantityTextView, intakeDate, expirationDateTextView, dDayTextView;
+        public TextView nameTextView, quantityTextView, unitTextView,
+                intakeDate, expirationDateTextView, dDayTextView;
         public ImageView imageView;
         Button deleteButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            // 각 아이템 뷰의 레퍼런스를 초기화
             nameTextView = itemView.findViewById(R.id.ingredient_name);
             quantityTextView = itemView.findViewById(R.id.ingredient_quantity);
+            unitTextView = itemView.findViewById(R.id.ingredient_unit); // ✅ 단위 뷰 연결
             intakeDate = itemView.findViewById(R.id.ingredient_intake_date);
             expirationDateTextView = itemView.findViewById(R.id.ingredient_expiration_date);
             imageView = itemView.findViewById(R.id.ingredient_image);
             deleteButton = itemView.findViewById(R.id.btn_delete);
-            dDayTextView = itemView.findViewById(R.id.tv_d_day);  // dDayTextView 초기화
-
+            dDayTextView = itemView.findViewById(R.id.tv_d_day);
         }
     }
 }

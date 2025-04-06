@@ -43,6 +43,15 @@
             android:textColor="#666666"
             android:textSize="12sp" />
 
+        <!-- 단위 텍스트 뷰 (새로 추가) -->
+        <TextView
+            android:id="@+id/ingredient_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Unit"
+            android:textColor="#666666"
+            android:textSize="12sp" />
+
         <!-- 입고 날짜 텍스트 뷰 -->
         <TextView
             android:id="@+id/ingredient_intake_date"

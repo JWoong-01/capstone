@@ -30,6 +30,9 @@
         <activity android:name=".UserInput" />
         <activity android:name=".ScanReceipt" />
         <activity android:name=".ReceiptScannerActivity"/>
+        <activity android:name=".ReceiptCheckActivity" />
+        <activity android:name="com.canhub.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat.Light" />
 
 
         <activity

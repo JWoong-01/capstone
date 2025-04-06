@@ -23,13 +23,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class AddDetailActivity extends AppCompatActivity {
 
-    private Button btn_fredge, btnSetting,btnRecipe,btnBack, btnDecreaseQuantity, btnIncreaseQuantity, btnIngredientAdd;
+    private Button btn_fredge, btnSetting, btnRecipe, btnBack, btnDecreaseQuantity, btnIncreaseQuantity, btnIngredientAdd;
     private TextView tvItemName, quantityText;
     private ImageView ivItemImage;
-    private EditText etExpirationDate;
+    private EditText etExpirationDate, etUnit; // 단위 입력 추가
     private int quantity = 0;
     private RadioGroup rgStorage; // 저장 장소 선택 RadioGroup
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +44,8 @@ public class AddDetailActivity extends AppCompatActivity {
         quantityText = findViewById(R.id.quantityText);
         ivItemImage = findViewById(R.id.iv_itemImage);
         etExpirationDate = findViewById(R.id.et_expirationDate);
+        etUnit = findViewById(R.id.et_unit); // 단위 입력란 연결
         rgStorage = findViewById(R.id.rg_storage); // RadioGroup 초기화
-
 
         // 초기 수량 설정
         quantityText.setText(String.valueOf(quantity));
@@ -55,31 +54,20 @@ public class AddDetailActivity extends AppCompatActivity {
         btnRecipe = findViewById(R.id.btn_recipe);
         btn_fredge = findViewById(R.id.btn_fredge);
 
-        btn_fredge.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AddDetailActivity.this, HomeActivity.class);
-                startActivity(intent);
-            }
+        btn_fredge.setOnClickListener(v -> {
+            Intent intent = new Intent(AddDetailActivity.this, HomeActivity.class);
+            startActivity(intent);
         });
 
-        btnSetting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AddDetailActivity.this, SettingActivity.class);
-                startActivity(intent);
-            }
+        btnSetting.setOnClickListener(v -> {
+            Intent intent = new Intent(AddDetailActivity.this, SettingActivity.class);
+            startActivity(intent);
         });
 
-        btnRecipe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AddDetailActivity.this, RecipeActivity.class);
-                startActivity(intent);
-            }
+        btnRecipe.setOnClickListener(v -> {
+            Intent intent = new Intent(AddDetailActivity.this, RecipeActivity.class);
+            startActivity(intent);
         });
-
-
 
         // Intent에서 데이터 받기
         Intent intent = getIntent();
@@ -91,7 +79,6 @@ public class AddDetailActivity extends AppCompatActivity {
             tvItemName.setText(itemName); // 재료 이름 설정
             ivItemImage.setImageResource(itemImage); // 재료 이미지 설정
         }
-
 
         // 뒤로가기 버튼
         btnBack.setOnClickListener(v -> finish());
@@ -117,45 +104,51 @@ public class AddDetailActivity extends AppCompatActivity {
 
         // 재료 추가 버튼
         btnIngredientAdd.setOnClickListener(v -> {
-            if (quantity == 0) { // 수량이 0인 경우 경고 메시지를 표시하고 리턴
+            if (quantity == 0) {
                 Toast.makeText(this, "수량이 0일 경우 재료를 추가할 수 없습니다.", Toast.LENGTH_SHORT).show();
                 return;
             }
+
             String ingredientName = tvItemName.getText().toString();
             String expirationDate = etExpirationDate.getText().toString();
-            if (expirationDate.isEmpty()) { // 유통기한이 비어 있는 경우
+            String unit = etUnit.getText().toString().trim(); // 단위 입력 가져오기
+
+            if (expirationDate.isEmpty()) {
                 Toast.makeText(this, "유통기한을 입력해주세요.", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            int image  = getIntent().getIntExtra("itemImage", R.drawable.ic_trashcan); // 기본값은 trashcan 이미지
+            if (unit.isEmpty()) {
+                Toast.makeText(this, "단위를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            int image = getIntent().getIntExtra("itemImage", R.drawable.ic_trashcan);
             ivItemImage.setImageResource(image);
 
             // 저장 장소 선택
-            int selectedStorageId = rgStorage.getCheckedRadioButtonId(); // 선택된 저장 장소의 ID 가져오기
+            int selectedStorageId = rgStorage.getCheckedRadioButtonId();
             RadioButton selectedStorage = findViewById(selectedStorageId);
-            String storageLocation = selectedStorage != null ? selectedStorage.getText().toString() : "냉장"; // 기본값은 냉장
+            String storageLocation = selectedStorage != null ? selectedStorage.getText().toString() : "냉장";
 
             // 현재 날짜를 입고 날짜로 설정
             String intakeDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
-            // ApiRequest 클래스 사용하여 서버에 재료 추가
+            // 서버로 재료 정보 전송
             ApiRequest apiRequest = new ApiRequest(this);
-            apiRequest.addIngredient(ingredientName, quantity, intakeDate, expirationDate, storageLocation, image );
+            apiRequest.addIngredient(ingredientName, quantity, unit, intakeDate, expirationDate, storageLocation, image);
 
             // 알림 설정
             scheduleNotification(ingredientName, expirationDate);
 
+            // 화면 전환
             Intent returnIntent = new Intent(AddDetailActivity.this, AddIngredientActivity.class);
             startActivity(returnIntent);
             finish();
         });
-
-
     }
 
-
-    // 유통기한을 위한 날짜 선택기 다이얼로그 표시
+    // 유통기한 날짜 선택기
     private void showDatePickerDialog() {
         final Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -170,18 +163,16 @@ public class AddDetailActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
+    // 유통기한 알림 예약
     private void scheduleNotification(String ingredientName, String expirationDate) {
-        // 날짜 형식 파싱 및 알림 예약
         Calendar calendar = Calendar.getInstance();
-        // 예: expirationDate는 "2023-12-31" 형식으로 제공된다고 가정
         String[] dateParts = expirationDate.split("-");
         if (dateParts.length == 3) {
             int year = Integer.parseInt(dateParts[0]);
-            int month = Integer.parseInt(dateParts[1]) - 1; // Calendar는 0-based month
+            int month = Integer.parseInt(dateParts[1]) - 1;
             int day = Integer.parseInt(dateParts[2]);
-            calendar.set(year, month, day, 9, 0); // 알림 시간: 오전 9시
+            calendar.set(year, month, day, 9, 0);
 
-            // 현재 시간보다 과거 날짜인지 확인
             if (calendar.getTimeInMillis() > System.currentTimeMillis()) {
                 Intent notificationIntent = new Intent(this, NotificationReceiver.class);
                 notificationIntent.putExtra("ingredientName", ingredientName);
@@ -196,5 +187,4 @@ public class AddDetailActivity extends AppCompatActivity {
             }
         }
     }
-
 }

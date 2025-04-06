@@ -41,7 +41,6 @@ public class SettingActivity extends AppCompatActivity {
 
         switchNotification = findViewById(R.id.switch_notification);
         switchCamera = findViewById(R.id.switch_camera);
-        Button btnScanBarcode = findViewById(R.id.btn_scan_barcode); // 바코드 스캔 버튼
 
         // SharedPreferences 초기화
         SharedPreferences sharedPreferences = getSharedPreferences("settings", MODE_PRIVATE);
@@ -75,11 +74,7 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-        // 바코드 스캔 버튼 클릭 리스너 추가
-        btnScanBarcode.setOnClickListener(v -> {
-            Intent intent = new Intent(SettingActivity.this, BarcodeScannerActivity.class);
-            startActivityForResult(intent, BARCODE_REQUEST_CODE);
-        });
+
     }
 
     // 바코드 스캔 결과 처리

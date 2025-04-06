@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 public class Ingredient implements Serializable {
     private String name;
     private int quantity;
+    private String unit;
     private final String intakeDate;
     private Calendar  expirationDate;
     private String storageLocation;
@@ -16,9 +17,10 @@ public class Ingredient implements Serializable {
 
 
     // 생성자
-    public Ingredient(String name, int quantity,  String intakeDate, Calendar expirationDate, String storageLocation, int imageResId) {
+    public Ingredient(String name, int quantity, String unit,  String intakeDate, Calendar expirationDate, String storageLocation, int imageResId) {
         this.name = name;
         this.quantity = quantity;
+        this.unit = unit;
         this.intakeDate = intakeDate;
         this.expirationDate = expirationDate;
         this.storageLocation = storageLocation;
@@ -33,7 +35,7 @@ public class Ingredient implements Serializable {
     public int getQuantity() {
         return quantity;
     }
-
+    public String getUnit() {return unit;}
     public Calendar getExpirationDate() {return expirationDate;}
     public String getFormattedExpirationDate() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());

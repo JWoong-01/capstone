@@ -41,6 +41,7 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.volley)
     implementation(libs.play.services.mlkit.text.recognition.common)
+    implementation(libs.play.services.mlkit.text.recognition.korean)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -70,6 +71,10 @@ dependencies {
     implementation ("androidx.camera:camera-lifecycle:1.4.1")
     implementation ("androidx.camera:camera-view:1.4.1")
     implementation ("com.google.mlkit:barcode-scanning:17.3.0")
+
+    // 이미지 크롭 라이브러리
+    implementation("com.github.CanHub:Android-Image-Cropper:4.3.2")
+
 
 
 }
