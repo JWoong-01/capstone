@@ -46,25 +46,11 @@
             android:textColor="#000000"
             android:textSize="14sp" /> <!-- 텍스트 수평, 수직으로 중앙 정렬 -->
 
-        <!-- 수량 텍스트 뷰 -->
         <TextView
-            android:id="@+id/ingredient_quantity"
+            android:id="@+id/ingredient_quantity_with_unit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:maxLines="1"
-            android:text="Quantity"
-            android:textColor="#666666"
-            android:textSize="12sp" /> <!-- 텍스트 수평, 수직으로 중앙 정렬 -->
-        <!-- 단위 텍스트 뷰 (새로 추가) -->
-        <TextView
-            android:id="@+id/ingredient_unit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Unit"
-            android:textColor="#666666"
-            android:textSize="12sp" />
+            android:text="수량+단위" />
 
         <!-- 입고 날짜 텍스트 뷰 -->
         <TextView

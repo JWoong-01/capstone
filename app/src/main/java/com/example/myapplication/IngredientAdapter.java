@@ -51,8 +51,11 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
 
         // 값 바인딩
         holder.nameTextView.setText(ingredient.getName());
-        holder.quantityTextView.setText(ingredient.getQuantity() + "개");
-        holder.unitTextView.setText("단위: " + ingredient.getUnit());  // ✅ 단위 추가
+
+        // 수량과 단위를 함께 보여줌
+        holder.quantityWithUnitTextView.setText(ingredient.getQuantity() + ingredient.getUnit());
+
+
         holder.intakeDate.setText("입고날짜 " + ingredient.getIntakeDate());
         holder.expirationDateTextView.setText("유통기한: " + ingredient.getFormattedExpirationDate());
 
@@ -107,16 +110,15 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
 
     // ViewHolder 클래스
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView nameTextView, quantityTextView, unitTextView,
+        public TextView nameTextView,  quantityWithUnitTextView,
                 intakeDate, expirationDateTextView, dDayTextView;
         public ImageView imageView;
-        Button deleteButton;
+        public Button deleteButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.ingredient_name);
-            quantityTextView = itemView.findViewById(R.id.ingredient_quantity);
-            unitTextView = itemView.findViewById(R.id.ingredient_unit); // ✅ 단위 뷰 연결
+            quantityWithUnitTextView = itemView.findViewById(R.id.ingredient_quantity_with_unit); // ✅ 필드에 할당
             intakeDate = itemView.findViewById(R.id.ingredient_intake_date);
             expirationDateTextView = itemView.findViewById(R.id.ingredient_expiration_date);
             imageView = itemView.findViewById(R.id.ingredient_image);
