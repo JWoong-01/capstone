@@ -228,17 +228,14 @@ public class ApiRequest {
     }
 
 
-    // 재료를 수정하는 메서드
-    public void updateIngredient(String name, int quantity, String intakeDate, String expirationDate, String storageLocation, int imageResId, final ApiUpdateListener listener) {
-        String url = "http://yju407.dothome.co.kr/update_ingredient.php"; // 서버 URL
+    public void updateIngredient(String name, int quantity, String unit, String intakeDate, String expirationDate, String storageLocation, int imageResId, final ApiUpdateListener listener) {
+        String url = "http://yju407.dothome.co.kr/update_ingredient.php";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 response -> {
-                    // 수정 성공
                     listener.onUpdateSuccess();
                 },
                 error -> {
-                    // 오류 발생
                     Log.e("Error", error.toString());
                     listener.onUpdateError();
                 }) {
@@ -247,18 +244,19 @@ public class ApiRequest {
                 Map<String, String> params = new HashMap<>();
                 params.put("name", name);
                 params.put("quantity", String.valueOf(quantity));
+                params.put("unit", unit); // ✅ unit 추가!
                 params.put("intakeDate", intakeDate);
                 params.put("expiration_date", expirationDate);
-                params.put("storageLocation", storageLocation); // storageLocation 추가
-                params.put("image", String.valueOf(imageResId)); // 이미지 리소스 ID
+                params.put("storageLocation", storageLocation);
+                params.put("image", String.valueOf(imageResId));
                 return params;
             }
         };
 
-        // 요청 큐에 추가
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
     }
+
 
     // 삭제 성공/실패 리스너 인터페이스
     public interface ApiDeleteListener {
