@@ -132,9 +132,12 @@ public class ReceiptItemAdapter extends RecyclerView.Adapter<ReceiptItemAdapter.
             List<String> units = new ArrayList<>();
             units.add("개");
             units.add("팩");
-            units.add("ml");
-            units.add("l");
+            units.add("봉지");
             units.add("g");
+            units.add("kg");
+            units.add("ml");
+            units.add("L");
+            units.add("묶음");
             return units;
         }
     }

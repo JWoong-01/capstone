@@ -15,7 +15,7 @@ import java.util.List;
 
 public class RecipeActivity extends AppCompatActivity {
 
-    private Button btn_fredge, btnSetting,btnRecipe;
+    private Button btn_fredge, btnSetting, btnRecipe;
     private RecyclerView recyclerViewRecipes;
     private RecipeAdapter recipeAdapter;
     private List<Recipe> recipeList;
@@ -64,10 +64,29 @@ public class RecipeActivity extends AppCompatActivity {
 
         // 홈 화면에서 전달된 재료 목록 받기
         ArrayList<String> ingredients = getIntent().getStringArrayListExtra("ingredients");
+        if (ingredients != null && !ingredients.isEmpty()) {
+            ApiRequest apiRequest = new ApiRequest(this);
+            apiRequest.fetchRecipesFromXMLAPI(new ApiRequest.RecipeFetchListener() {
+                @Override
+                public void onFetchSuccess(List<Recipe> recipes) {
+                    List<Recipe> filtered = filterRecipesByIngredients(recipes, ingredients);
+                    recipeList.clear();
+                    recipeList.addAll(filtered);
+                    recipeAdapter.notifyDataSetChanged();
+                }
 
-        // 레시피 데이터 불러오기
+                @Override
+                public void onFetchError(VolleyError error) {
+                    Toast.makeText(RecipeActivity.this, "공공 API 호출 실패", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            Toast.makeText(this, "재료 정보가 없습니다.", Toast.LENGTH_SHORT).show();
+        }
+
         loadRecipes(ingredients);
     }
+
 
     private void loadRecipes(List<String> ingredients) {
         ApiRequest apiRequest = new ApiRequest(this);
@@ -100,41 +119,18 @@ public class RecipeActivity extends AppCompatActivity {
         List<Recipe> filteredRecipes = new ArrayList<>();
 
         for (Recipe recipe : recipes) {
-            // 레시피 재료 목록 (쉼표로 구분된 문자열)
-            String[] recipeIngredients = recipe.getIngredients().split(",");
-            List<String> recipeIngredientList = new ArrayList<>();
+            String recipeIngredientText = recipe.getIngredients().toLowerCase();
 
-            // 레시피 재료의 각 항목에 대해 공백 제거 및 소문자로 변환
-            for (String ingredient : recipeIngredients) {
-                // 공백 제거하고 소문자 변환
-                recipeIngredientList.add(ingredient.trim().toLowerCase());
-            }
+            for (String userIngredient : userIngredients) {
+                String keyword = userIngredient.trim().toLowerCase();
 
-            // 사용자가 가진 재료 목록
-            List<String> userIngredientList = new ArrayList<>();
-            for (String ingredient : userIngredients) {
-                // 공백 제거하고 소문자 변환
-                userIngredientList.add(ingredient.trim().toLowerCase());
-            }
-
-            // 비교하기 전에 로그로 확인
-            Log.d("RecipeFilter", "Recipe ingredients: " + recipeIngredientList);
-            Log.d("RecipeFilter", "User ingredients: " + userIngredientList);
-
-            // 겹치는 재료가 있는지 확인 (교집합)
-            recipeIngredientList.retainAll(userIngredientList);
-
-            // 교집합 결과를 로그로 출력
-            Log.d("RecipeFilter", "Common ingredients: " + recipeIngredientList);
-
-            // 겹치는 재료가 있다면 해당 레시피 추가
-            if (!recipeIngredientList.isEmpty()) {
-                filteredRecipes.add(recipe);
+                if (recipeIngredientText.contains(keyword)) {
+                    filteredRecipes.add(recipe);
+                    break; // 하나라도 포함되면 추가
+                }
             }
         }
 
         return filteredRecipes;
     }
-
-
 }

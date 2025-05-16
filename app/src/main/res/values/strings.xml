@@ -1,5 +1,18 @@
 <resources>
-    <string name="app_name">FreshBox</string>
-    <string name="itemImage">재료 이미지</string>
-    <string name="itemName">양파</string>
+    <string name="app_name">My Application</string>
+
+    <string-array name="unit_array">
+        <item>개</item>
+        <item>g</item>
+        <item>ml</item>
+        <item>L</item>
+    </string-array>
+
+    <string-array name="notification_days">
+        <item>당일</item>
+        <item>1일 전</item>
+        <item>2일 전</item>
+        <item>3일 전</item>
+        <item>7일 전</item>
+    </string-array>
 </resources>

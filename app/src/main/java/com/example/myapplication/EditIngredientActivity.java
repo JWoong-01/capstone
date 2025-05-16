@@ -4,12 +4,14 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +28,7 @@ public class EditIngredientActivity extends AppCompatActivity {
     private TextView tvItemName, quantityText;
     private ImageView ivItemImage;
     private EditText etUnit, etExpirationDate;
+    private Spinner spinnerUnit;
     private RadioGroup rgStorage;
     private RadioButton rbFridge, rbFreezer;
 
@@ -46,11 +49,29 @@ public class EditIngredientActivity extends AppCompatActivity {
         tvItemName = findViewById(R.id.edt_name);
         quantityText = findViewById(R.id.edt_quantity);
         ivItemImage = findViewById(R.id.iv_itemImage);
-        etUnit = findViewById(R.id.et_unit);
+        spinnerUnit = findViewById(R.id.spinner_unit);
         etExpirationDate = findViewById(R.id.et_expirationDate);
         rgStorage = findViewById(R.id.rg_storage);
         rbFridge = findViewById(R.id.rb_fridge);
         rbFreezer = findViewById(R.id.rb_freezer);
+
+        // 단위 스피너 설정
+        ArrayAdapter<CharSequence> unitAdapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.unit_array, // strings.xml에 정의된 배열
+                android.R.layout.simple_spinner_item
+        );
+        unitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerUnit.setAdapter(unitAdapter);
+
+        // 기존 재료의 단위를 spinner에서 선택
+        if (ingredient != null) {
+            String unit = ingredient.getUnit();
+            if (unit != null) {
+                int spinnerPosition = unitAdapter.getPosition(unit);
+                spinnerUnit.setSelection(spinnerPosition);
+            }
+        }
 
         // 냉장고 버튼 -> 홈으로 이동
         btnFredge.setOnClickListener(v -> {
@@ -70,17 +91,21 @@ public class EditIngredientActivity extends AppCompatActivity {
                 quantity = ingredient.getQuantity();
                 quantityText.setText(String.valueOf(quantity));
                 ivItemImage.setImageResource(ingredient.getImageResId());
-                etUnit.setText(ingredient.getUnit());
-
+                String unit = ingredient.getUnit();
+                if (unit != null) {
+                    ArrayAdapter<CharSequence> adapter = (ArrayAdapter<CharSequence>) spinnerUnit.getAdapter();
+                    int spinnerPosition = adapter.getPosition(unit);
+                    spinnerUnit.setSelection(spinnerPosition);
+                }
                 // 날짜 설정
                 Calendar calendar = ingredient.getExpirationDate();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                 etExpirationDate.setText(sdf.format(calendar.getTime()));
 
                 // 저장 장소 선택
-                if ("냉장실".equals(ingredient.getStorageLocation())) {
+                if ("냉장".equals(ingredient.getStorageLocation())) {
                     rbFridge.setChecked(true);
-                } else if ("냉동실".equals(ingredient.getStorageLocation())) {
+                } else if ("냉동".equals(ingredient.getStorageLocation())) {
                     rbFreezer.setChecked(true);
                 }
             }
@@ -108,7 +133,7 @@ public class EditIngredientActivity extends AppCompatActivity {
         // 저장 버튼
         btnSave.setOnClickListener(v -> {
             String name = tvItemName.getText().toString().trim();
-            String unit = etUnit.getText().toString().trim();
+            String unit = spinnerUnit.getSelectedItem().toString(); // EditText에서 Spinner로 변경됨
             String dateStr = etExpirationDate.getText().toString().trim();
             String storage = rbFridge.isChecked() ? "냉장실" : rbFreezer.isChecked() ? "냉동실" : "";
 
@@ -127,7 +152,6 @@ public class EditIngredientActivity extends AppCompatActivity {
                 return;
             }
 
-            // 유통기한 Calendar로 변환
             Calendar expirationCalendar = Calendar.getInstance();
             try {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -137,18 +161,41 @@ public class EditIngredientActivity extends AppCompatActivity {
                 return;
             }
 
-            // ingredient 객체 업데이트
-            ingredient.setQuantity(quantity);
-            ingredient.setUnit(unit);
-            ingredient.setExpirationDate(expirationCalendar);
-            ingredient.setStorageLocation(storage);
+            // 서버에 수정 요청 보내기
+            ApiRequest apiRequest = new ApiRequest(this);
+            apiRequest.updateIngredient(
+                    name,
+                    quantity,
+                    unit,
+                    ingredient.getIntakeDate(), // 기존 섭취일은 그대로 유지한다고 가정
+                    dateStr,
+                    storage,
+                    ingredient.getImageResId(),
+                    new ApiRequest.ApiUpdateListener() {
+                        @Override
+                        public void onUpdateSuccess() {
+                            Toast.makeText(EditIngredientActivity.this, "재료가 성공적으로 수정되었습니다.", Toast.LENGTH_SHORT).show();
 
-            // 결과 전달
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra("updatedIngredient", ingredient);
-            setResult(RESULT_OK, resultIntent);
-            finish();
+                            // 수정된 객체 로컬에도 반영
+                            ingredient.setQuantity(quantity);
+                            ingredient.setUnit(unit);
+                            ingredient.setExpirationDate(expirationCalendar);
+                            ingredient.setStorageLocation(storage);
+
+                            Intent resultIntent = new Intent();
+                            resultIntent.putExtra("updateIngredient", ingredient);
+                            setResult(RESULT_OK, resultIntent);
+                            finish();
+                        }
+
+                        @Override
+                        public void onUpdateError() {
+                            Toast.makeText(EditIngredientActivity.this, "수정 실패. 서버를 확인해주세요.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+            );
         });
+
     }
 
     private void showDatePickerDialog() {

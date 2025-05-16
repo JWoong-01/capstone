@@ -23,7 +23,7 @@ import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
     private static final int NOTIFICATION_PERMISSION_REQUEST_CODE = 1001;
-    private Button btnEdit, btnDelete, btnPlus, btnSetting, btnRecipe, btnRecipeView;
+    private Button btnShopping, btnDelete, btnPlus, btnSetting, btnRecipe, btnRecipeView;
     private TextView tvTitle;
     private RecyclerView recyclerViewIngredients;
     private RecyclerView recyclerViewIngredientsFreezer;
@@ -46,6 +46,7 @@ public class HomeActivity extends AppCompatActivity {
         tvTitle = findViewById(R.id.tv_title);
         btnDelete = findViewById(R.id.btn_delete);
         btnPlus = findViewById(R.id.btn_plus);
+        btnShopping = findViewById(R.id.btn_shopping);
         btnSetting = findViewById(R.id.btn_setting);
         btnRecipe = findViewById(R.id.btn_recipe);
         btnRecipeView = findViewById(R.id.btn_recipe_view);
@@ -78,6 +79,15 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, SettingActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // 장바구니 버튼 클릭 리스너
+        btnShopping.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, ShoppingCartActivity.class);
                 startActivity(intent);
             }
         });
@@ -190,6 +200,12 @@ public class HomeActivity extends AppCompatActivity {
 
         return ingredients;
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadIngredients();  // 항상 돌아올 때 새로 불러오기
+    }
+
 
     private void loadIngredients() {
         ApiRequest apiRequest = new ApiRequest(this);

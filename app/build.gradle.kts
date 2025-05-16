@@ -75,6 +75,11 @@ dependencies {
     // 이미지 크롭 라이브러리
     implementation("com.github.CanHub:Android-Image-Cropper:4.3.2")
 
+    // 레시피api  추가
+    implementation ("com.android.volley:volley:1.2.1")
+    implementation ("com.google.code.gson:gson:2.10.1")
+
+
 
 
 }

@@ -12,6 +12,10 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
+import java.io.StringReader;
+
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -199,6 +203,74 @@ public class ApiRequest {
         }
         return recipeList;
     }
+    //  식약처 기반 레시피 불러오기
+    public void fetchRecipesFromXMLAPI(final RecipeFetchListener listener) {
+        String url = "http://openapi.foodsafetykorea.go.kr/api/cf37f4688166446c8e5e/COOKRCP01/xml/1/100";
+
+        StringRequest request = new StringRequest(Request.Method.GET, url,
+                response -> {
+                    try {
+                        List<Recipe> recipes = parseXML(response);
+                        listener.onFetchSuccess(recipes);
+                    } catch (Exception e) {
+                        Log.e("ApiRequest", "XML 파싱 실패", e);
+                        listener.onFetchError(null);
+                    }
+                },
+                error -> {
+                    Log.e("ApiRequest", "공공 API(XML) 요청 실패", error);
+                    listener.onFetchError(error);
+                });
+
+        RequestQueue queue = Volley.newRequestQueue(context);
+        queue.add(request);
+    }
+    private List<Recipe> parseXML(String xml) throws Exception {
+        List<Recipe> recipes = new ArrayList<>();
+        Recipe currentRecipe = null;
+
+        XmlPullParser parser = XmlPullParserFactory.newInstance().newPullParser();
+        parser.setInput(new StringReader(xml));
+        int eventType = parser.getEventType();
+
+        while (eventType != XmlPullParser.END_DOCUMENT) {
+            String tag = parser.getName();
+
+            switch (eventType) {
+                case XmlPullParser.START_TAG:
+                    if ("row".equals(tag)) {
+                        currentRecipe = new Recipe();
+                    } else if (currentRecipe != null) {
+                        if ("RCP_NM".equals(tag)) {
+                            currentRecipe.setName(parser.nextText());
+                        } else if ("ATT_FILE_NO_MAIN".equals(tag)) {
+                            currentRecipe.setImageUrl(parser.nextText());
+                        } else if ("RCP_PARTS_DTLS".equals(tag)) {
+                            currentRecipe.setIngredients(parser.nextText());
+                        } else if (tag.startsWith("MANUAL")) {
+                            String step = parser.nextText();
+                            if (!step.trim().isEmpty()) {
+                                String inst = currentRecipe.getInstructions() != null ? currentRecipe.getInstructions() : "";
+                                currentRecipe.setInstructions(inst + step + "\n");
+                            }
+                        }
+                    }
+                    break;
+
+                case XmlPullParser.END_TAG:
+                    if ("row".equals(tag) && currentRecipe != null) {
+                        recipes.add(currentRecipe);
+                        currentRecipe = null;
+                    }
+                    break;
+            }
+
+            eventType = parser.next();
+        }
+
+        return recipes;
+    }
+
 
     // 재료를 삭제하는 메서드 (이미지 리소스 ID로 삭제)
     public void deleteIngredientByImage(int imageResId, final ApiDeleteListener listener) {
@@ -269,6 +341,7 @@ public class ApiRequest {
         void onUpdateSuccess();
         void onUpdateError();
     }
+
 
     // 레시피 가져오기 성공/실패 리스너 인터페이스
     public interface RecipeFetchListener {

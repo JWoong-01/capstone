@@ -6,6 +6,7 @@ public class Recipe {
     private String imageUrl; // 이미지 URL
     private String ingredients;
     private String instructions; // 제조 과정
+    public Recipe() {}
 
     // 생성자
     public Recipe(String name, String imageUrl, String ingredients, String instructions) {

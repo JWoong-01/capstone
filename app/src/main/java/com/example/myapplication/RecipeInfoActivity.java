@@ -55,24 +55,45 @@ public class RecipeInfoActivity extends AppCompatActivity {
     // 레시피 목록을 가져오는 메서드
     private void loadRecipes() {
         ApiRequest apiRequest = new ApiRequest(this);
+        allRecipes = new ArrayList<>();
+
+        // 서버 레시피
         apiRequest.fetchRecipesByIngredients(new ArrayList<>(), new ApiRequest.RecipeFetchListener() {
             @Override
-            public void onFetchSuccess(List<Recipe> recipes) {
-                allRecipes = recipes;
-                filteredRecipes = new ArrayList<>(allRecipes);
-                recipeAdapter.updateRecipeList(filteredRecipes); // 레시피 어댑터에 데이터 업데이트
-                // 디버깅: 데이터가 올바르게 들어왔는지 확인
-                for (Recipe recipe : recipes) {
-                    Log.d("RecipeInfoActivity", "Recipe: " + recipe.getName());
-                }
+            public void onFetchSuccess(List<Recipe> dbRecipes) {
+                allRecipes.addAll(dbRecipes);
+                checkAndDisplayAll();  // 레시피 도착 후 표시
             }
 
             @Override
             public void onFetchError(VolleyError error) {
-                Toast.makeText(RecipeInfoActivity.this, "레시피를 불러오는 데 실패했습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RecipeInfoActivity.this, "레시피 로딩 실패", Toast.LENGTH_SHORT).show();
+                checkAndDisplayAll();
+            }
+        });
+
+        // api 레시피
+        apiRequest.fetchRecipesFromXMLAPI(new ApiRequest.RecipeFetchListener() {
+            @Override
+            public void onFetchSuccess(List<Recipe> publicRecipes) {
+                allRecipes.addAll(publicRecipes);
+                checkAndDisplayAll();  // 레시피 도착 후 갱신
+            }
+
+            @Override
+            public void onFetchError(VolleyError error) {
+                Toast.makeText(RecipeInfoActivity.this, "레시피 로딩 실패", Toast.LENGTH_SHORT).show();
+                checkAndDisplayAll();
             }
         });
     }
+
+
+    private void checkAndDisplayAll() {
+        filteredRecipes = new ArrayList<>(allRecipes);
+        recipeAdapter.updateRecipeList(filteredRecipes);
+    }
+
 
     // 검색어에 맞는 레시피 목록을 필터링하는 메서드
     private void filterRecipes(String query) {

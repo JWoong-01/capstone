@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Calendar;
 
 public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.ViewHolder> {
 
@@ -21,13 +22,13 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
     private ApiRequest apiRequest;
     private boolean isDeleteMode = false;  // 삭제 모드 상태
 
+
     // Constructor
     public IngredientAdapter(List<Ingredient> ingredients, Context context) {
         this.ingredients = ingredients;
         this.context = context;
         apiRequest = new ApiRequest(context); // ApiRequest 인스턴스 생성
     }
-
     public void setDeleteMode(boolean isDeleteMode) {
         this.isDeleteMode = isDeleteMode;
         notifyDataSetChanged();  // 삭제 모드가 변경되었으므로 Adapter를 새로고침
@@ -55,7 +56,6 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
         // 수량과 단위를 함께 보여줌
         holder.quantityWithUnitTextView.setText(ingredient.getQuantity() + ingredient.getUnit());
 
-
         holder.intakeDate.setText("입고날짜 " + ingredient.getIntakeDate());
         holder.expirationDateTextView.setText("유통기한: " + ingredient.getFormattedExpirationDate());
 
@@ -65,14 +65,29 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
 
         // D-Day 계산 및 표시
         String dDayText = ingredient.calculateDDay();
-        holder.dDayTextView.setText(dDayText);
+        holder.dDayTextView.setText(dDayText); // dDayTextView에 D-day 설정
+
+        // D-Day 색상 변경
+        Calendar today = Calendar.getInstance();
+        long diffInMillis = ingredient.getExpirationDate().getTimeInMillis() - today.getTimeInMillis();
+        long diffInDays = diffInMillis / (1000 * 60 * 60 * 24);
+
+        if (diffInDays < 0) {
+            holder.dDayTextView.setBackgroundResource(R.drawable.d_day_background_gray); // 지난 경우 - 회색
+        } else if (diffInDays == 0) {
+            holder.dDayTextView.setBackgroundResource(R.drawable.d_day_background_red); // 당일 - 빨강
+        } else if (diffInDays <= 3) {
+            holder.dDayTextView.setBackgroundResource(R.drawable.d_day_background_orange); // 3일 이하 - 주황
+        } else if (diffInDays <= 7) {
+            holder.dDayTextView.setBackgroundResource(R.drawable.d_day_background_green); // 7일 이상 - 초록
+        }
 
         // 삭제 모드일 때만 삭제 버튼을 보여줌
         holder.deleteButton.setVisibility(isDeleteMode ? View.VISIBLE : View.GONE);
 
         // 삭제 버튼 클릭 시 서버에 삭제 요청
         holder.deleteButton.setOnClickListener(v -> {
-            int currentPosition = holder.getAdapterPosition();
+            int currentPosition = holder.getAdapterPosition();  // 현재 아이템의 위치 가져오기
             if (currentPosition != RecyclerView.NO_POSITION) {
                 apiRequest.deleteIngredientByImage(imageResId, new ApiRequest.ApiDeleteListener() {
                     @Override
@@ -98,6 +113,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
         });
     }
 
+
     @Override
     public int getItemCount() {
         return ingredients.size();
@@ -118,7 +134,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
         public ViewHolder(View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.ingredient_name);
-            quantityWithUnitTextView = itemView.findViewById(R.id.ingredient_quantity_with_unit); // ✅ 필드에 할당
+            quantityWithUnitTextView = itemView.findViewById(R.id.ingredient_quantity_with_unit);
             intakeDate = itemView.findViewById(R.id.ingredient_intake_date);
             expirationDateTextView = itemView.findViewById(R.id.ingredient_expiration_date);
             imageView = itemView.findViewById(R.id.ingredient_image);
