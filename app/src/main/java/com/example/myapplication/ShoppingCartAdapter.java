@@ -5,8 +5,11 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +20,7 @@ import java.util.List;
 public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapter.ViewHolder> {
 
     private List<ShoppingItem> itemList;
+    private String[] unitArray = {"개", "봉지", "팩", "g", "ml"};
 
     public ShoppingCartAdapter(List<ShoppingItem> itemList) {
         this.itemList = itemList;
@@ -68,26 +72,56 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
 
     private void showEditDialog(Context context, ShoppingItem item, int position) {
         View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_add_item, null);
-        EditText etName = dialogView.findViewById(R.id.et_item_name);
-        EditText etQuantity = dialogView.findViewById(R.id.et_item_quantity);
-        EditText etUnit = dialogView.findViewById(R.id.et_item_unit);
 
+        AutoCompleteTextView etName = dialogView.findViewById(R.id.et_item_name);
+        Button btnDecrease = dialogView.findViewById(R.id.btn_decrease);
+        Button btnIncrease = dialogView.findViewById(R.id.btn_increase);
+        TextView tvQuantity = dialogView.findViewById(R.id.tv_quantity);
+        Spinner spinnerUnit = dialogView.findViewById(R.id.spinner_unit);
+
+        // 초기 값 설정
         etName.setText(item.getName());
-        etQuantity.setText(String.valueOf(item.getQuantity()));
-        etUnit.setText(item.getUnit());
+        tvQuantity.setText(String.valueOf(item.getQuantity()));
+
+        // Spinner 설정
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, unitArray);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerUnit.setAdapter(adapter);
+
+        int unitPosition = 0;
+        for (int i = 0; i < unitArray.length; i++) {
+            if (unitArray[i].equals(item.getUnit())) {
+                unitPosition = i;
+                break;
+            }
+        }
+        spinnerUnit.setSelection(unitPosition);
+
+        // 수량 조절 버튼
+        final int[] quantity = {item.getQuantity()};
+
+        btnDecrease.setOnClickListener(v -> {
+            if (quantity[0] > 1) {
+                quantity[0]--;
+                tvQuantity.setText(String.valueOf(quantity[0]));
+            }
+        });
+
+        btnIncrease.setOnClickListener(v -> {
+            quantity[0]++;
+            tvQuantity.setText(String.valueOf(quantity[0]));
+        });
 
         new AlertDialog.Builder(context)
                 .setTitle("품목 수정")
                 .setView(dialogView)
                 .setPositiveButton("저장", (dialog, which) -> {
                     String name = etName.getText().toString().trim();
-                    String quantityStr = etQuantity.getText().toString().trim();
-                    String unit = etUnit.getText().toString().trim();
+                    String unit = spinnerUnit.getSelectedItem().toString();
 
-                    if (!name.isEmpty() && !quantityStr.isEmpty()) {
-                        int quantity = Integer.parseInt(quantityStr);
+                    if (!name.isEmpty()) {
                         item.setName(name);
-                        item.setQuantity(quantity);
+                        item.setQuantity(quantity[0]);
                         item.setUnit(unit);
                         notifyItemChanged(position);
                     }

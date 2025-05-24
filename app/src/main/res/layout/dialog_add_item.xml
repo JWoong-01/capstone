@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <!-- 품목명 -->
-    <EditText
+    <!-- 품목명: 자동완성 -->
+    <AutoCompleteTextView
         android:id="@+id/et_item_name"
         android:hint="품목명"
         android:inputType="textCapWords"
@@ -14,20 +14,46 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp" />
 
-    <!-- 수량 -->
-    <EditText
-        android:id="@+id/et_item_quantity"
-        android:hint="수량"
-        android:inputType="number"
+    <!-- 수량: + / - 버튼 -->
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp" />
+        android:gravity="center_vertical"
+        android:layout_marginBottom="12dp">
 
-    <!-- 단위 -->
-    <EditText
-        android:id="@+id/et_item_unit"
-        android:hint="단위 (예: 개, 봉지)"
-        android:inputType="text"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="수량:"
+            android:textSize="16sp"
+            android:layout_marginEnd="12dp" />
+
+        <Button
+            android:id="@+id/btn_decrease"
+            android:text="-"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+
+        <TextView
+            android:id="@+id/tv_quantity"
+            android:text="1"
+            android:textSize="16sp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:layout_marginHorizontal="12dp" />
+
+        <Button
+            android:id="@+id/btn_increase"
+            android:text="+"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+    </LinearLayout>
+
+    <!-- 단위: Spinner 선택 -->
+    <Spinner
+        android:id="@+id/spinner_unit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>

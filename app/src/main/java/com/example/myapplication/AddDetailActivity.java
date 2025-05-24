@@ -132,7 +132,7 @@ public class AddDetailActivity extends AppCompatActivity {
                 return;
             }
 
-            int image  = getIntent().getIntExtra("itemImage", R.drawable.ic_trashcan); // 기본값은 trashcan 이미지
+            int image  = getIntent().getIntExtra("itemImage", R.drawable.ic_recipe); // 기본값은 레시피 이미지
             ivItemImage.setImageResource(image);
 
             // 저장 장소 선택
@@ -181,7 +181,7 @@ public class AddDetailActivity extends AppCompatActivity {
             int year = Integer.parseInt(dateParts[0]);
             int month = Integer.parseInt(dateParts[1]) - 1; // Calendar는 0-based month
             int day = Integer.parseInt(dateParts[2]);
-            calendar.set(year, month, day, 9, 0); // 알림 시간: 오전 9시
+            calendar.set(year, month, day, 9, 0); // 알림 시간: 오ㅂㅈ전 9시
 
             // 선택값에 따라 며칠 전에 받을 지 조정
             int[] daysBeforeOptions = {0, 1, 2, 3, 7};

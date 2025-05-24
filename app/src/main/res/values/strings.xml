@@ -3,7 +3,9 @@
 
     <string-array name="unit_array">
         <item>개</item>
+        <item>팩</item>
         <item>g</item>
+        <item>kg</item>
         <item>ml</item>
         <item>L</item>
     </string-array>

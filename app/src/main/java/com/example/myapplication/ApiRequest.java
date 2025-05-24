@@ -33,6 +33,113 @@ public class ApiRequest {
         this.context = context;
     }
 
+    // 장바구니 항목 추가
+    public void addShoppingItem(String name, int quantity, String unit, final ApiCallback callback) {
+        String url = "http://yju407.dothome.co.kr/add_shopping_cart.php"; // 장바구니 추가 PHP 경로
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                response -> {
+                    Log.d("ApiRequest", "장바구니 추가 응답: " + response);
+                    Toast.makeText(context, "장바구니에 추가되었습니다.", Toast.LENGTH_SHORT).show();
+                    if (callback != null) callback.onSuccess(response);
+                },
+                error -> {
+                    Log.e("ApiRequest", "장바구니 추가 오류: " + error.toString());
+                    Toast.makeText(context, "장바구니 추가 중 오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
+                    if (callback != null) callback.onError(error);
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("name", name);
+                params.put("quantity", String.valueOf(quantity));
+                params.put("unit", unit);
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+    }
+
+    // 장바구니 항목 목록 가져오기
+    public void fetchShoppingItems(final ShoppingFetchListener listener) {
+        String url = "http://yju407.dothome.co.kr/get_shopping_cart.php"; // 장바구니 목록 PHP 경로
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                response -> {
+                    List<ShoppingItem> shoppingItems = parseShoppingItems(response);
+                    listener.onFetchSuccess(shoppingItems);
+                },
+                error -> {
+                    Log.e("ApiRequest", "장바구니 불러오기 오류", error);
+                    listener.onFetchError(error);
+                });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(jsonArrayRequest);
+    }
+
+    // 장바구니 항목 삭제
+    public void deleteShoppingItem(int id, final ApiCallback callback) {
+        String url = "http://yju407.dothome.co.kr/delete_shopping_cart.php"; // 장바구니 삭제 PHP 경로
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                response -> {
+                    Log.d("ApiRequest", "장바구니 삭제 응답: " + response);
+                    Toast.makeText(context, "장바구니에서 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                    if (callback != null) callback.onSuccess(response);
+                },
+                error -> {
+                    Log.e("ApiRequest", "장바구니 삭제 오류: " + error.toString());
+                    Toast.makeText(context, "장바구니 삭제 중 오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
+                    if (callback != null) callback.onError(error);
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("id", String.valueOf(id)); // 삭제할 항목 id
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+    }
+
+
+    // 장바구니 JSON 파싱 메서드
+    private List<ShoppingItem> parseShoppingItems(JSONArray jsonArray) {
+        List<ShoppingItem> shoppingItems = new ArrayList<>();
+        try {
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                int id = jsonObject.getInt("id");
+                String name = jsonObject.getString("name");
+                int quantity = jsonObject.getInt("quantity");
+                String unit = jsonObject.getString("unit");
+
+                shoppingItems.add(new ShoppingItem(id, name, quantity, unit));
+            }
+        } catch (JSONException e) {
+            Log.e("ApiRequest", "장바구니 파싱 오류", e);
+        }
+        return shoppingItems;
+    }
+
+
+    // 콜백 인터페이스 - 성공/실패 처리용
+    public interface ApiCallback {
+        void onSuccess(String response);
+        void onError(VolleyError error);
+    }
+
+    // 장바구니 항목 불러오기 콜백
+    public interface ShoppingFetchListener {
+        void onFetchSuccess(List<ShoppingItem> shoppingItems);
+        void onFetchError(VolleyError error);
+    }
+
     // 재료 추가 메서드
     public void addIngredient(String itemName, int quantity, String unit, String intakeDate, String expirationDate, String storageLocation, int image) {
         String url = "http://yju407.dothome.co.kr/add_ingredient.php";

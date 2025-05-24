@@ -135,7 +135,7 @@ public class EditIngredientActivity extends AppCompatActivity {
             String name = tvItemName.getText().toString().trim();
             String unit = spinnerUnit.getSelectedItem().toString(); // EditText에서 Spinner로 변경됨
             String dateStr = etExpirationDate.getText().toString().trim();
-            String storage = rbFridge.isChecked() ? "냉장실" : rbFreezer.isChecked() ? "냉동실" : "";
+            String storage = rbFridge.isChecked() ? "냉장" : rbFreezer.isChecked() ? "냉동" : "";
 
             if (quantity == 0) {
                 Toast.makeText(this, "수량이 0일 경우 재료를 추가할 수 없습니다.", Toast.LENGTH_SHORT).show();

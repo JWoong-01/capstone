@@ -47,7 +47,7 @@
             android:id="@+id/iv_itemImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/it_onion"
+            android:src="@drawable/ic_recipe"
             android:contentDescription="재료 이미지" />
 
         <TextView

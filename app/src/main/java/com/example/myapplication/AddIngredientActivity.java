@@ -48,10 +48,10 @@ public class AddIngredientActivity extends AppCompatActivity {
                             tab.setText("양념");
                             break;
                         case 6:
-                            tab.setText("곡류");
+                            tab.setText("기타");
                             break;
                         default:
-                            tab.setText("기타");
+                            tab.setText("");
                             break;
                     }
                 }).attach();
