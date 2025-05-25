@@ -1,8 +1,10 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -27,7 +29,7 @@ public class EditIngredientActivity extends AppCompatActivity {
     private Button btnBack, btnDecreaseQuantity, btnIncreaseQuantity, btnSave, btnFredge;
     private TextView tvItemName, quantityText;
     private ImageView ivItemImage;
-    private EditText etUnit, etExpirationDate;
+    private EditText etExpirationDate;
     private Spinner spinnerUnit;
     private RadioGroup rgStorage;
     private RadioButton rbFridge, rbFreezer;
@@ -35,6 +37,7 @@ public class EditIngredientActivity extends AppCompatActivity {
     private int quantity = 0;
     private Ingredient ingredient;
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +57,10 @@ public class EditIngredientActivity extends AppCompatActivity {
         rgStorage = findViewById(R.id.rg_storage);
         rbFridge = findViewById(R.id.rb_fridge);
         rbFreezer = findViewById(R.id.rb_freezer);
+
+        // 유통기한 EditText 설정 - 직접 입력 방지
+        etExpirationDate.setInputType(InputType.TYPE_NULL);
+        etExpirationDate.setFocusable(false);
 
         // 단위 스피너 설정
         ArrayAdapter<CharSequence> unitAdapter = ArrayAdapter.createFromResource(
@@ -111,7 +118,7 @@ public class EditIngredientActivity extends AppCompatActivity {
             }
         }
 
-        // 수량 감소
+        // 수량 감소ㅂㅈ
         btnDecreaseQuantity.setOnClickListener(v -> {
             if (quantity > 0) {
                 quantity--;

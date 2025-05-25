@@ -159,14 +159,15 @@
             android:id="@+id/et_expirationDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="20dp"
             android:backgroundTint="@color/black"
             android:hint="날짜 입력"
-            android:inputType="date"
             android:padding="8dp"
             android:textColor="@color/black"
-            android:textSize="14sp" />
+            android:textSize="16sp"
+            android:focusable="false"
+            android:clickable="true" />
     </LinearLayout>
 
     <!-- 저장 장소 -->
@@ -174,12 +175,13 @@
         android:id="@+id/storageOptions"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/label"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="456dp">
 
         <TextView
             android:id="@+id/tv_storageLabel"
@@ -219,10 +221,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="160dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginBottom="30dp"
         android:text="저장"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/label"
+        app:layout_constraintBottom_toBottomOf="@id/line_bottom"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

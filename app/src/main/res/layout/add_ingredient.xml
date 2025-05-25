@@ -30,16 +30,6 @@
             android:text="재료 추가"
             android:textSize="18sp" />
 
-        <!-- 재료 검색 -->
-        <Button
-            android:id="@+id/btn_search"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="3dp"
-            android:layout_toStartOf="@id/btn_input"
-            android:background="@drawable/ic_search" />
-
         <!-- 재료 직접 입력 -->
         <Button
             android:id="@+id/btn_input"
@@ -112,9 +102,12 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="곡류" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="기타" />
-
-
     </com.google.android.material.tabs.TabLayout>
 
     <!-- 재료 뷰페이지 -->
@@ -130,6 +123,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/category_tab"
         app:layout_constraintVertical_bias="0.0" />
+
+    <!-- 검색 결과 페이지 -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_result_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:visibility="gone"
+        android:padding="13dp"
+        app:layout_constraintTop_toBottomOf="@id/category_tab"
+        app:layout_constraintBottom_toTopOf="@id/bottom_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <!-- 하단바 구분선 -->
     <View

@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -18,10 +19,16 @@ public class RecipeInfoActivity extends AppCompatActivity {
     private List<Recipe> allRecipes; // 서버에서 받아온 전체 레시피 목록
     private List<Recipe> filteredRecipes; // 검색 결과로 필터링된 레시피 목록
 
+    private Button btnBack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_info);
+
+        btnBack = findViewById(R.id.btn_back);
+
+        btnBack.setOnClickListener(v -> finish());
 
         // RecyclerView 설정
         recyclerViewRecipes = findViewById(R.id.recyclerViewRecipes);

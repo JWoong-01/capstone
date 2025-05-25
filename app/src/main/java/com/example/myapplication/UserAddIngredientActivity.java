@@ -18,11 +18,17 @@ public class UserAddIngredientActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_add_ingredient_activity);
 
+        Ingredient selectedIngredient = (Ingredient) getIntent().getSerializableExtra("ingredient");
+
         // UI 요소 초기화
         etIngredientName = findViewById(R.id.et_ingredient_name);
         btnAddIngredient = findViewById(R.id.btn_add_ingredient);
         btnBack = findViewById(R.id.btn_back);
         btnSetting = findViewById(R.id.btn_setting);
+
+        if (selectedIngredient != null) {
+            etIngredientName.setText(selectedIngredient.getName());
+        }
 
         // 등록 버튼 클릭 리스너
         btnAddIngredient.setOnClickListener(new View.OnClickListener() {
