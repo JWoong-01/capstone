@@ -1,29 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btn_back"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/ic_caretleft"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!-- 상단바 -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
 
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@drawable/ic_caretleft"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="장바구니"
+            android:textSize="18sp"/>
+
+        <Button
+            android:id="@+id/btn_move_to_fridge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="내 냉장고에 추가"/>
+    </LinearLayout>
+
+    <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewShoppingCart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
+    <!-- 항목 추가 버튼 -->
     <Button
         android:id="@+id/btn_add_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="항목 추가" />
+        android:text="항목 추가"/>
 </LinearLayout>

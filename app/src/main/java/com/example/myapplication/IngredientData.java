@@ -189,7 +189,7 @@ public class IngredientData {
             case "피시 소스": return R.drawable.it_fishsauce;
             case "치킨 스톡": return R.drawable.it_chicken_seasoning;
             case "토마토 소스": return R.drawable.it_tomatopaste;
-            default: return R.drawable.ic_pencil; // 기본 이미지
+            default: return R.drawable.ic_recipe; // 기본 이미지
         }
     }
 

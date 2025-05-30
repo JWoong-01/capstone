@@ -52,6 +52,9 @@ public class ReceiptCheckActivity extends AppCompatActivity {
             String expirationDate = String.format("%d-%02d-%02d",
                     today.get(Calendar.YEAR), today.get(Calendar.MONTH) + 1, today.get(Calendar.DAY_OF_MONTH));
 
+            String matchedName = IngredientData.getMatchedKoreanName(item.name);
+            int imageResId = IngredientData.getImageResource(matchedName);
+
             // 저장 시 이름, 수량, 단위 포함해서 전송
             apiRequest.addIngredient(
                     item.name,
@@ -60,12 +63,11 @@ public class ReceiptCheckActivity extends AppCompatActivity {
                     intakeDate,
                     expirationDate,
                     "냉장",                // ✅ storageLocation
-                    0                      // ✅ int image (임시로 0 넣음)
+                    imageResId
             );
 
-        Toast.makeText(this, "품목이 저장되었습니다.", Toast.LENGTH_SHORT).show();
-        finish();
+            Toast.makeText(this, "품목이 저장되었습니다.", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
 }
-
