@@ -60,8 +60,12 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
         holder.expirationDateTextView.setText("유통기한: " + ingredient.getFormattedExpirationDate());
 
         // 이미지 설정
-        int imageResId = ingredient.getImageResId();
+
+        //int imageResId = ingredient.getImageResId();
+        //holder.imageView.setImageResource(imageResId);
+        int imageResId = IngredientData.getImageResource(ingredient.getName());
         holder.imageView.setImageResource(imageResId);
+
 
         // D-Day 계산 및 표시
         String dDayText = ingredient.calculateDDay();
@@ -89,7 +93,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
         holder.deleteButton.setOnClickListener(v -> {
             int currentPosition = holder.getAdapterPosition();  // 현재 아이템의 위치 가져오기
             if (currentPosition != RecyclerView.NO_POSITION) {
-                apiRequest.deleteIngredientByImage(imageResId, new ApiRequest.ApiDeleteListener() {
+                apiRequest.deleteIngredientByImage(ingredient.getName(), new ApiRequest.ApiDeleteListener() {
                     @Override
                     public void onDeleteSuccess() {
                         ingredients.remove(currentPosition);

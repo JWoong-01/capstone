@@ -49,6 +49,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         holder.tvName.setText(item.getName());
         holder.tvQuantity.setText(item.getQuantity() + " " + item.getUnit());
 
+
         // 선택 모드 상태에 따라 체크박스 보이기
         holder.checkBox.setVisibility(isSelectionMode ? View.VISIBLE : View.GONE);
         holder.checkBox.setChecked(item.isChecked());

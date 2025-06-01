@@ -176,7 +176,8 @@ public class ShoppingCartActivity extends AppCompatActivity {
                 jsonObject.put("name", item.getName());
                 jsonObject.put("quantity", item.getQuantity());
                 jsonObject.put("unit", item.getUnit());
-                jsonObject.put("storageLocation", "냉장실"); // 기본값
+                jsonObject.put("storageLocation", "냉장"); // 기본값
+               // jsonObject.put("image","2131232085");
                 jsonArray.put(jsonObject);
             }
         } catch (JSONException e) {

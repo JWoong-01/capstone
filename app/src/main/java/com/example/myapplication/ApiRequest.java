@@ -380,7 +380,7 @@ public class ApiRequest {
 
 
     // 재료를 삭제하는 메서드 (이미지 리소스 ID로 삭제)
-    public void deleteIngredientByImage(int imageResId, final ApiDeleteListener listener) {
+    public void deleteIngredientByImage(String name, final ApiDeleteListener listener) {
         String url = "http://yju407.dothome.co.kr/delete_ingredient.php"; // 서버 URL
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
@@ -396,7 +396,7 @@ public class ApiRequest {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                params.put("image", String.valueOf(imageResId)); // 삭제할 재료의 이미지 리소스 ID
+                params.put("name", String.valueOf(name)); // 삭제할 재료의 ID
                 return params;
             }
         };

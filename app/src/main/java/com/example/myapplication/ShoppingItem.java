@@ -5,6 +5,7 @@ public class ShoppingItem {
     private String name;
     private int quantity;
     private String unit;
+    private int image;  // 이미지 리소스 ID 추가
     private boolean isChecked = false; // 선택 상태
 
     // 생성자 (DB에서 로드된 항목)
@@ -13,6 +14,8 @@ public class ShoppingItem {
         this.name = name;
         this.quantity = quantity;
         this.unit = unit;
+        this.image = IngredientData.getImageResource(IngredientData.getMatchedKoreanName(name));
+
     }
 
     // 생성자 (새 항목)
@@ -22,12 +25,14 @@ public class ShoppingItem {
 
     // Getter
     public int getId() { return id; }
+    public int getImage() {return  image;}
     public String getName() { return name; }
     public int getQuantity() { return quantity; }
     public String getUnit() { return unit; }
     public boolean isChecked() { return isChecked; } // 선택 상태 확인
 
     // Setter
+    public  void setImage(int image) {this.image = image;}
     public void setId(int id) { this.id = id; }
     public void setName(String name) { this.name = name; }
     public void setQuantity(int quantity) { this.quantity = quantity; }
