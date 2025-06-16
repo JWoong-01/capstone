@@ -46,7 +46,9 @@ public class RecipeActivity extends AppCompatActivity {
         ArrayList<String> ingredients = getIntent().getStringArrayListExtra("ingredients");
         if (ingredients != null && !ingredients.isEmpty()) {
             ApiRequest apiRequest = new ApiRequest(this);
-            apiRequest.fetchRecipesFromXMLAPI(new ApiRequest.RecipeFetchListener() {
+            apiRequest.fetchRecipesFromXMLAPI(new ApiRequest.RecipeFetchListener() {             //레시피 api 서버 오류 6/7~
+                //   apiRequest.fetchRecipesFromLocalAsset(new ApiRequest.RecipeFetchListener() {            //대체 코드
+
                 @Override
                 public void onFetchSuccess(List<Recipe> recipes) {
                     List<Recipe> filtered = filterRecipesByIngredients(recipes, ingredients);

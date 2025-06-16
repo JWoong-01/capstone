@@ -203,7 +203,7 @@ public class ScanReceipt extends AppCompatActivity {
         OkHttpClient client = new OkHttpClient();
 
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE, 10);
+        calendar.add(Calendar.DATE, 7);
         String expirationDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(calendar.getTime());
 
         // 이미지 ID 자동 매핑
@@ -218,7 +218,7 @@ public class ScanReceipt extends AppCompatActivity {
                 .add("quantity", "1") // 기본 수량
                 .add("unit", "개") // 기본 단위
                 .add("intakeDate", new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()))
-                .add("expiration_date", expirationDate)  // 오늘 기준 +10일로 자동 설정
+                .add("expiration_date", expirationDate)  // 오늘 기준 +7일로 자동 설정
                 .add("storageLocation", "냉장")
                 .add("image", String.valueOf(imageResId))
                 .build();

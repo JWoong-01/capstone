@@ -76,6 +76,10 @@ public class Ingredient implements Serializable {
         this.storageLocation = storageLocation;
     }
 
+    public void setImageResId(int imageResId) {
+        this.imageResId = imageResId;
+    }
+
     // 유통기한 체크
     public boolean isExpiringSoon() {
         Calendar today = Calendar.getInstance();

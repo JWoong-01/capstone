@@ -14,6 +14,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.StringReader;
 
 
@@ -312,7 +316,7 @@ public class ApiRequest {
     }
     //  식약처 기반 레시피 불러오기
     public void fetchRecipesFromXMLAPI(final RecipeFetchListener listener) {
-        String url = "http://openapi.foodsafetykorea.go.kr/api/cf37f4688166446c8e5e/COOKRCP01/xml/1/100";
+        String url = "http://openapi.foodsafetykorea.go.kr/api/cf37f4688166446c8e5e/COOKRCP01/xml/1/100"; // api서버 오류로 인한 조회 불가  6/7~
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 response -> {
@@ -378,6 +382,27 @@ public class ApiRequest {
         return recipes;
     }
 
+
+  /*  public void fetchRecipesFromLocalAsset(final RecipeFetchListener listener) {                            //6/7~ 대체코드
+        try {
+            InputStream inputStream = context.getAssets().open("recipes.xml");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+            StringBuilder builder = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                builder.append(line);
+            }
+            reader.close();
+            inputStream.close();
+
+            List<Recipe> recipes = parseXML(builder.toString());
+            listener.onFetchSuccess(recipes);
+
+        } catch (Exception e) {
+            Log.e("ApiRequest", "로컬 XML 레시피 불러오기 실패", e);
+            listener.onFetchError(null);
+        }
+    }  */
 
     // 재료를 삭제하는 메서드 (이미지 리소스 ID로 삭제)
     public void deleteIngredientByImage(String name, final ApiDeleteListener listener) {

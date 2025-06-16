@@ -30,9 +30,14 @@ public class ReceiptCheckActivity extends AppCompatActivity {
         adapter = new ReceiptItemAdapter(scannedItems);
         recyclerView.setAdapter(adapter);
 
-        saveButton.setOnClickListener(v -> saveSelectedItemsToDB());
-    }
+        saveButton.setOnClickListener(v -> {
+            if (getCurrentFocus() != null) {
+                getCurrentFocus().clearFocus();
+            }
 
+            saveSelectedItemsToDB();
+        });
+    }
     private void saveSelectedItemsToDB() {
         List<ReceiptItemAdapter.ReceiptItem> selectedItems = adapter.getSelectedItems();
 
@@ -57,7 +62,7 @@ public class ReceiptCheckActivity extends AppCompatActivity {
 
             // 저장 시 이름, 수량, 단위 포함해서 전송
             apiRequest.addIngredient(
-                    item.name,
+                    matchedName,
                     item.quantity,
                     item.unit,             // ✅ String unit
                     intakeDate,

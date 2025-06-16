@@ -80,7 +80,9 @@ public class RecipeInfoActivity extends AppCompatActivity {
         });
 
         // api 레시피
-        apiRequest.fetchRecipesFromXMLAPI(new ApiRequest.RecipeFetchListener() {
+        apiRequest.fetchRecipesFromXMLAPI(new ApiRequest.RecipeFetchListener() {              //api 서버 오류 6/7~
+            //apiRequest.fetchRecipesFromLocalAsset(new ApiRequest.RecipeFetchListener() {            //대체코드
+
             @Override
             public void onFetchSuccess(List<Recipe> publicRecipes) {
                 allRecipes.addAll(publicRecipes);

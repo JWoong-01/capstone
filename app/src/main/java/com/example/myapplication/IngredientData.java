@@ -58,6 +58,10 @@ public class IngredientData {
     public static String getMatchedKoreanName(String productName) {
         productName = productName.toLowerCase();
 
+        if (productName.contains("고추장")) return "고추장";
+        if (productName.contains("케첩")) return "케첩";
+        if (productName.contains("우유")) return "우유";
+
         // 각 카테고리 배열 다 검사
         String match = matchName(productName, DAIRY);
         if (match != null) return match;

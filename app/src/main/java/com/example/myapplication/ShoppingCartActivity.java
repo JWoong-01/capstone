@@ -123,8 +123,8 @@ public class ShoppingCartActivity extends AppCompatActivity {
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_add_item, null);
 
         AutoCompleteTextView etName = dialogView.findViewById(R.id.et_item_name);
-        Button btnDecrease = dialogView.findViewById(R.id.btn_decrease);
-        Button btnIncrease = dialogView.findViewById(R.id.btn_increase);
+        ImageButton btnDecrease = dialogView.findViewById(R.id.btn_decrease);
+        ImageButton  btnIncrease = dialogView.findViewById(R.id.btn_increase);
         TextView tvQuantity = dialogView.findViewById(R.id.tv_quantity);
         Spinner spinnerUnit = dialogView.findViewById(R.id.spinner_unit);
 
@@ -176,8 +176,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
                 jsonObject.put("name", item.getName());
                 jsonObject.put("quantity", item.getQuantity());
                 jsonObject.put("unit", item.getUnit());
-                jsonObject.put("storageLocation", "냉장"); // 기본값
-               // jsonObject.put("image","2131232085");
+                jsonObject.put("storageLocation", "냉장실"); // 기본값
                 jsonArray.put(jsonObject);
             }
         } catch (JSONException e) {

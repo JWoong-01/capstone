@@ -97,7 +97,10 @@ public class EditIngredientActivity extends AppCompatActivity {
                 tvItemName.setText(ingredient.getName());
                 quantity = ingredient.getQuantity();
                 quantityText.setText(String.valueOf(quantity));
-                ivItemImage.setImageResource(ingredient.getImageResId());
+                String matchedName = IngredientData.getMatchedKoreanName(ingredient.getName());
+                int imageResId = IngredientData.getImageResource(matchedName);
+                ivItemImage.setImageResource(imageResId);
+                ingredient.setImageResId(imageResId);
                 String unit = ingredient.getUnit();
                 if (unit != null) {
                     ArrayAdapter<CharSequence> adapter = (ArrayAdapter<CharSequence>) spinnerUnit.getAdapter();
